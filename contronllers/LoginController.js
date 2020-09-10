@@ -28,6 +28,8 @@ class login{
             return res.redirect("/");
         }
         res.render("login/login",{passwordFalse:true});
+
+        
     }
 
     async getRegister(req,res)
