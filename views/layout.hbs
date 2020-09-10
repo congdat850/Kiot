@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard 3</title>
+    <title>KIOT</title>
 
     <!-- Fontfaces CSS-->
     <link href="stylesheets/font-face.css" rel="stylesheet" media="all">
@@ -36,9 +36,13 @@
 </head>
 
 <body class="animsition">
+    {{#if notIsLogin}}
     {{> header}}
+    {{/if}}
     {{{body}}}
+    {{#if notIsLogin}}
     {{> footer}}
+    {{/if}}
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
