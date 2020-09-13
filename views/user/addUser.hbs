@@ -1,0 +1,89 @@
+<div class="page-wrapper">
+    <!-- PAGE CONTAINER-->
+    <!-- MAIN CONTENT-->
+    <div class="page-container">
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>Thêm</strong> nhân viên
+                                </div>
+                                <div class="card-body card-block">
+                                    <form action="/addUser" method="post" class="form-horizontal">
+                                        <div class="row form-group">
+                                            <div class="col col-md-3">
+                                                <label for="text-input" class=" form-control-label">Họ và tên</label>
+                                            </div>
+                                            <div class="col-12 col-md-9">
+                                                <input type="text" id="text-input" name="username"
+                                                    placeholder="Họ và tên nhân viên" class="form-control">
+                                                {{!-- <small class="form-text text-muted">This is a help text</small> --}}
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col col-md-3">
+                                                <label for="email-input" class=" form-control-label">Email </label>
+                                            </div>
+                                            <div class="col-12 col-md-9">
+                                                <input type="email" id="email-input" name="email"
+                                                    placeholder="Nhập email" class="form-control">
+                                                {{!-- <small class="help-block form-text">Please enter your email</small> --}}
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col col-md-3">
+                                                <label for="select" class=" form-control-label">Chức vụ</label>
+                                            </div>
+                                            <div class="col-12 col-md-9">
+                                                <select name="role" id="select" class="form-control">
+                                                    <option value="sale">Sale</option>
+                                                    <option value="productionStaff">Nhân viên sản xuất</option>
+                                                    <option value="accountant">Kế toán</option>
+                                                    <option value="admin">Admin</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <div class="col col-md-3">
+                                                <label for="text-input" class=" form-control-label">Số điện
+                                                    thoại</label>
+                                            </div>
+                                            <div class="col-12 col-md-9">
+                                                <input type="text" id="text-input" name="phoneNumber"
+                                                    placeholder="Nhập số điện thoại" class="form-control">
+                                                {{!-- <small class="form-text text-muted">This is a help text</small> --}}
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-group">
+                                            <div class="col col-md-3">
+                                                <label for="password-input" class=" form-control-label">Password</label>
+                                            </div>
+                                            <div class="col-12 col-md-9">
+                                                <input type="password" id="password-input" name="password"
+                                                    placeholder="Password" class="form-control">
+                                                {{!-- <small class="help-block form-text">Please enter a complex
+                                                    password</small> --}}
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                <i class="fa fa-dot-circle-o"></i> Duyệt
+                                            </button>
+                                            <button type="reset" class="btn btn-danger btn-sm">
+                                                <i class="fa fa-ban"></i> Hủy
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

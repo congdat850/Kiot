@@ -1,0 +1,134 @@
+<div class="page-wrapper">
+    <div class="main-content" style="margin-top: -30px;">
+        <div class="section__content section__content--p30">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- TOP CAMPAIGN-->
+                        <div class="top-campaign"
+                            style="margin-top: 0px; margin-bottom: 0px;padding-top: 20px;padding-bottom: 70px;">
+                            <h3 class="title-3 m-b-5">Danh sách sản phẩm lên đơn</h3>
+                            <div class="table-responsive"
+                                style="line-height: 10px;  height:150px;overflow:auto; border: gray solid 1px;">
+                                <table class="table table-top-campaign">
+                                    <thead>
+                                        <tr>
+                                            <th>Loại sản phẩm</th>
+                                            <th>Đơn giá</th>
+                                            <th>Số lượng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="order">
+                                        <tr>
+                                            <td>
+                                                <h4> Danh sách sản phẩm lên đơn hiện đang trống</h4>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button style="margin-top: 10px;" class="btn-sm btn-success">submit</button>
+                        </div>
+                        <!--  END TOP CAMPAIGN-->
+                    </div>
+                </div>
+                <div class="row m-t-15">
+                    <div class="col-md-12">
+                        <!-- DATA TABLE-->
+                        <div class="table-responsive m-b-40" style="line-height: 10px; height:300px;overflow:auto;">
+                            <table class="table table-borderless table-data3">
+                                <thead>
+                                    <tr>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Loại hàng</th>
+                                        <th>Đơn vị tính</th>
+                                        <th>Số lượng</th>
+                                        <th>Đơn giá</th>
+                                        <th>Tên nhà cung cấp</th>
+                                        <th>Thêm vào</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each listProduct}}
+                                    <tr class="item-product">
+
+                                        <td>{{this.productCode}}</td>
+                                        <td>{{this.type}}</td>
+                                        <td>{{this.unit}}</td>
+                                        <td>{{this.amount}}</td>
+                                        <td>{{this.unitPrice}}</td>
+                                        <td>{{this.SupplierName}}</td>
+                                        <td hidden>{{this._id}}</td>
+                                        <td>
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="Send"
+                                                for={{this._id}}>
+                                                <i class="zmdi zmdi-mail-send"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- END DATA TABLE-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var result = [];
+
+    $(document).ready(function () {
+        $(".item-product").click(function () {
+            var resulhtml = "";
+            var item = {
+                _id: $(this).children()[6].textContent,
+                productCode: $(this).children()[0].textContent,
+                type: $(this).children()[1].textContent,
+                unit: $(this).children()[2].textContent,
+                amount: $(this).children()[3].textContent,
+                unitPrice: $(this).children()[4].textContent,
+                SupplierName: $(this).children()[5].textContent
+            }
+            result.push(item);
+            console.log(result);
+            for (let i = 0; i < result.length; i++) {
+                resulhtml = resulhtml + `<tr class="item-order">
+                    <td hidden>`+ result[i]._id + `</td>
+                                            <td>`+ result[i].type + `</td>
+                                            <td>`+ result[i].unitPrice + `</td>
+                                            <td><input type="number" id="quantity" name="quantity" min="1" max="`+ result[i].amount + `" value="1"></td>
+                                    </tr>`
+            }
+            $(".order").html(resulhtml);
+        })
+
+
+
+        $(".btn-success").click(function () {
+            var resultOrder = [];
+            var itemHTML = $(".order").children();
+            for (let i = 0; i < itemHTML.length; i++) {
+                var item =
+                {
+                    _id: itemHTML[i].getElementsByTagName("td")[0].textContent,
+                    amount: itemHTML[i].getElementsByTagName("td")[3].getElementsByTagName("input")[0].value
+                };
+                resultOrder.push(item);
+            }
+            console.log("resultOrder",resultOrder);
+            $.ajax({
+                type: "POST",
+                url: "/addDealProduct", success: function (result) {
+                    console.log(result);
+                    alert(result);
+                },
+                data: {data:JSON.stringify(resultOrder)}
+            });
+        });
+    })
+</script>

@@ -12,25 +12,32 @@ class Model{
       dbo=db.db("kiot");
     })
   }
-
-  // async createDb()
-  // {
-  //   var result = await dbo.createCollection("customers",(err,res)=>
-  //   {
-  //     if (err) throw err;
-  //   })
-
-  //   return result;
-  // }
-
+  // user
   async findUser(query)
   {
     var result = await dbo.collection("users").findOne(query);
     return result;
   }
+  async findAllUser()
+  {
+    var result = await dbo.collection("users").find({}).toArray();
+    return result;
+  }
   async insertUser(user)
   {
     var result= await dbo.collection("users").insertOne(user);
+    return result;
+  }
+  // product
+  async insertProduct(product)
+  {
+    var result = await dbo.collection("products").insertOne(product);
+    return result;
+  }
+
+  async findProducts()
+  {
+    var result= await dbo.collection("products").find({}).toArray();
     return result;
   }
 }

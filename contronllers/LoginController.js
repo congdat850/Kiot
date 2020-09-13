@@ -60,3 +60,4 @@ class login{
 }
 
 module.exports=login;
+

@@ -34,6 +34,8 @@ app.use(session({
 }))
 app.get("/login",login.getLogin);
 app.post("/login",login.postLogin);
+app.get("/register",login.getRegister);
+app.post("/register",login.postRegister);
 app.use('/', authention.authention,indexRouter);
 app.use('/users', usersRouter);
 

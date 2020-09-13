@@ -1,10 +1,3 @@
-{{#if notUser}}
-<script> alert("Người dùng chưa có!") </script>
-{{/if}}
-
-{{#if passwordFalse}}
-<script> alert("Mật khẩu chưa đúng!") </script>
-{{/if}}
 <div class="page-wrapper">
     <div class="page-content--bge5">
         <div class="container">
@@ -15,6 +8,17 @@
                             <img src="images/icon/kiotvietLogo.png" alt="CoolAdmin" />
                         </a>
                     </div>
+                    {{#if notUser}}
+                    <div class="alert alert-danger" role="alert">
+                        Người dùng không tồn tại!
+                    </div>
+                    {{/if}}
+
+                    {{#if passwordFalse}}
+                    <div class="alert alert-danger" role="alert">
+                        Mật khẩu người dùng nhập sai!
+                    </div>
+                    {{/if}}
                     <div class="login-form">
                         <form action="/login" method="POST">
                             <div class="form-group">
@@ -32,12 +36,6 @@
                                 </label>
                             </div>
                             <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Đăng nhập</button>
-                            {{!-- <div class="social-login-content">
-                                    <div class="social-button">
-                                        <button class="au-btn au-btn--block au-btn--blue m-b-20">sign in with facebook</button>
-                                        <button class="au-btn au-btn--block au-btn--blue2">sign in with twitter</button>
-                                    </div>
-                                </div> --}}
                         </form>
                         <div class="register-link">
                             <p>

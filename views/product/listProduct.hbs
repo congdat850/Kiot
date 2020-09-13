@@ -1,0 +1,81 @@
+
+{{#if addProductSuccess}}
+<script>
+    alert("Thêm sản phẩm thành công");
+</script>
+
+{{/if}}
+
+{{#if addProductFail}}
+<script>
+    alert("Thêm sản phẩm thất bại");
+</script>
+{{/if}}
+<div class="page-wrapper">
+    <!-- PAGE CONTAINER-->
+    {{!-- <div class="page-container"> --}}
+    <!-- MAIN CONTENT-->
+    <div class="main-content">
+        <div class="section__content section__content--p30">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        {{!-- add filter --}}
+                        <div class="table-data__tool">
+                            <div class="table-data__tool-right">
+                                <a href="/addProduct">
+                                <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                    <i class="zmdi zmdi-plus"></i>Thêm sản phẩm</button>
+                                             </a>
+                                <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                    <i class="zmdi zmdi-plus"></i>import Excel</button>
+                                <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                    <i class="zmdi zmdi-plus"></i>export Excel</button>
+                            </div>
+                        </div>
+                        {{!-- end filter --}}
+                        <div class="table-responsive table--no-card m-b-30">
+                            <table class="table table-borderless table-striped table-earning">
+                                <thead>
+                                    <tr>
+                                        <th>Ngày</th>
+                                        <th>Mã đơn hàng</th>
+                                        <th>loại hàng</th>
+                                        <th>Đơn vị tính</th>
+                                        <th>Số lượng</th>
+                                        <th>Đơn giá</th>
+                                        <th class="text-right">Thành tiền</th>
+                                        <th class="text-right">Mã</th>
+                                        <th class="text-right">Tên nhà cung cấp</th>
+                                        <th class="text-right">Xe tải</th>
+                                        <th class="text-right">Thanh toán</th>
+                                        <th class="text-right">Ghi chú</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each products}}
+                                    <tr>
+                                        <td>{{this.date}}</td>
+                                        <td>{{this.productCode}}</td>
+                                        <td>{{this.type}}</td>
+                                        <td>{{this.unit}}</td>
+                                        <td>{{this.amount}}</td>
+                                        <td>{{this.unitPrice}}</td>
+                                        <td class="text-right">{{this.intoMoney}}</td>
+                                        <td class="text-right">{{this.code}}</td>
+                                        <td class="text-right">{{this.SupplierName}}</td>
+                                        <td class="text-right">{{this.truck}}</td>
+                                        <td class="text-right">{{this.pay}}</td>
+                                        <td class="text-right">{{this.note}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- </div> --}}
+</div>
