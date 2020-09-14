@@ -23,8 +23,9 @@ class login{
         var result= await bcrypt.compare(password,user.password)
         if(result)
         {
-            sess.name=req.body.email;
-            sess.password=req.body.password;
+            sess.email=user.email;
+            sess.username=user.username;
+            sess.role=user.role;
             return res.redirect("/");
         }
         res.render("login/login",{passwordFalse:true});

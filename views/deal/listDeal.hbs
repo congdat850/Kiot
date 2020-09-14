@@ -1,0 +1,45 @@
+<div class="page-wrapper">
+    <div class="main-content">
+        <div class="section__content section__content--p30">
+            <div class="container">
+                <div class="row m-t-30">
+                    <div class="col-md-12">
+                        <!-- DATA TABLE-->
+                        <div class="table-responsive m-b-40">
+                            <table class="table table-borderless table-data3">
+                                <thead>
+                                    <tr>
+                                        <th>Ngày</th>
+                                        <th>loại hàng hóa</th>
+                                        <th>Số lượng</th>
+                                        <th>Đơn giá</th>
+                                        <th>Thành tiền</th>
+                                        <th>Khách hàng</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Số điện thoại</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each deals}}
+                                    <tr>
+                                        <td>{{this.date}}</td>
+                                        <td>Xem chi tiết</td>
+                                        <td>Xem chi tiết</td>
+                                        {{!-- <td class="process">Processed</td> --}}
+                                        <td>Xem chi tiết</td>
+                                        <td>{{this.totalPaymentAmount}}</td>
+                                        <td>{{this.username}}</td>
+                                        <td>{{this.address}}</td>
+                                        <td>{{this.phoneNumber}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- END DATA TABLE-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

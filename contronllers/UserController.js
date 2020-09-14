@@ -4,7 +4,6 @@ class User {
     async getUser(req, res) {
 
         var users = await model.findAllUser()
-        console.log("All user", users);
         if (req.query.query) {
             var query = JSON.parse(req.query.query);
             query.notIsLogin = true;

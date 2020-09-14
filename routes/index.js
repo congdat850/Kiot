@@ -9,6 +9,8 @@ var UserController=require("../contronllers/UserController");
 var userController= new UserController();
 var DealController= require("../contronllers/DealController");
 var dealController= new DealController();
+var ReportController = require("../contronllers/ReportController");
+var reportController= new ReportController();
 
 /* GET home page. */
 router.get('/', homeController.getindex);
@@ -21,5 +23,9 @@ router.get("/addUser",userController.getAddUser);
 router.post("/addUser",userController.postAddUser);
 //Get deal page 
 router.get("/addDeal",dealController.getAddDeal);
-router.post("/addDealProduct",dealController.postAddDealProduct);
+router.post("/addDeal",dealController.postAddDeal);
+router.get("/deals",dealController.getListDeal);
+// GET Report
+router.get("/report",reportController.getReport);
+router.post("/report",reportController.postReport);
 module.exports = router;

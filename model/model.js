@@ -35,9 +35,30 @@ class Model{
     return result;
   }
 
-  async findProducts()
+  async findAllProduct()
   {
     var result= await dbo.collection("products").find({}).toArray();
+    return result;
+  }
+  async findProduct(query)
+  {
+    var result= await dbo.collection("products").findOne(query);
+    return result
+  }
+  async updateProduct(myquery,newvalue)
+  {
+    var result = await dbo.collection("products").updateOne(myquery,{$set:newvalue});
+    return result;
+  }
+  //Deal
+  async insertDeal(data)
+  {
+    var result = await dbo.collection("deals").insertOne(data);
+    return result;
+  }
+  async getAllDeal()
+  {
+    var result= await dbo.collection("deals").find({}).toArray();
     return result;
   }
 }

@@ -3,8 +3,7 @@ const model = require("../model/model");
 class Product {
     async getListProduct(req, res) {
 
-        var result= await model.findProducts();
-        console.log(result);
+        var result= await model.findAllProduct();
 
         if (req.query.query) var query = JSON.parse(req.query.query);
         if (query) {
@@ -19,7 +18,6 @@ class Product {
         res.render("product/addProduct", { notIsLogin: true });
     }
     async postAddProduct(req, res) {
-        console.log(req.body);
         var result = await model.insertProduct(req.body);
         if (result) {
             return res.redirect("/products?query=" + JSON.stringify({addProductSuccess: true, notIsLogin: true}));
