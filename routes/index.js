@@ -1,31 +1,32 @@
 var express = require('express');
 var router = express.Router();
 
-var HomeController=require("../contronllers/HomeController");
-var homeController= new HomeController();
-var ProductController= require("../contronllers/ProductController");
-var productController= new ProductController();
-var UserController=require("../contronllers/UserController");
-var userController= new UserController();
-var DealController= require("../contronllers/DealController");
-var dealController= new DealController();
-var ReportController = require("../contronllers/ReportController");
-var reportController= new ReportController();
+const UserController = require("../contronllers/UserController");
+const userController = new UserController();
+const CustomerController= require("../contronllers/CustomerController");
+const customer = new CustomerController();
+const PlankController = require("../contronllers/PlankController");
+const plankController = new PlankController();
+const OrderManagementController= require("../contronllers/OrderManagementController");
+const orderManagementController = new OrderManagementController();
+const CoveredSurfaceController = require("../contronllers/CoveredSurfaceController");
+const coveredSurfaceController = new CoveredSurfaceController();
 
-/* GET home page. */
-router.get('/', homeController.getindex);
-router.get("/products",productController.getListProduct);
-router.get("/addProduct",productController.getAddProduct);
-router.post("/addproduct",productController.postAddProduct)
-// GET user page
-router.get("/user",userController.getUser);
-router.get("/addUser",userController.getAddUser);
-router.post("/addUser",userController.postAddUser);
-//Get deal page 
-router.get("/addDeal",dealController.getAddDeal);
-router.post("/addDeal",dealController.postAddDeal);
-router.get("/deals",dealController.getListDeal);
-// GET Report
-router.get("/report",reportController.getReport);
-router.post("/report",reportController.postReport);
+// GET User
+router.get("/user",userController.GetListUser);
+router.get("/addUser",userController.GetAddUser);
+router.post("/addUser", userController.PostAddUser)
+//GET Customer
+router.get("/customer",customer.GetListCustomer);
+//GET plank 
+router.get("/warehousePlank",plankController.GetListWarehousePlank);
+//Get order
+router.get("/orderManagement", orderManagementController.GetListOrderManagement);
+router.post("/postProcess",orderManagementController.PostProcess);
+router.get("/createOrderManagement",orderManagementController.GetCreateOrderManagement);
+router.post("/postCreateOrderManagement",orderManagementController.PostCreateOrderManagement);
+router.post("/postSearchOrder",orderManagementController.PostSearchOrder);
+// router.get("/GetDataAutocomplete",orderManagementController.GetDataAutocomplete);
+// GET CoveredSurface
+router.get("/coveredSurface",coveredSurfaceController.GetListWarehouseCoverSurface);
 module.exports = router;

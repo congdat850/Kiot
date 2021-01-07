@@ -1,0 +1,556 @@
+<link rel="stylesheet" href="./stylesheets/createOrderManagement.css">
+<div class="form-add-order">
+
+    <fieldset>
+        <legend>TẠO ĐƠN HÀNG</legend>
+        <div class="customer">
+            <label for="">Mã khách hàng: </label>
+            <input type="text" name="" id="tags-code-customer">
+            <label for="">Tên khách hàng: </label><input class="input-none-edit" id="tags-name-customer" type="text"
+                readonly>
+            <label for="">Công nợ </label><input class="input-none-edit" id="debt" type="text" name="" readonly>
+        </div>
+        <div class="line">
+            ________________________________________________________________________________________________</div>
+        <br>
+        <div class="plank">
+            <label for="">Mã ván: </label>
+            <input type="text" name="" id="tags-code-plank" onfocusout="checkQuantily()">
+            <label for="">Tên ván</label> <input type="text" class="input-none-edit" id="tags-name-plank" readonly
+                required>
+            <label for="">Độ dày: </label>
+            <select name="cars" id="tags-thickness" onchange="checkQuantily()">
+                <option value="20li">20li</option>
+                <option value="18li">18li</option>
+                <option value="17li">17li</option>
+                <option value="15li">15li</option>
+                <option value="14li">14li</option>
+            </select>
+            <label for="">Đơn giá: </label><input type="text" value="0" name="" id="tags-unit-price"
+                onkeyup="moneyCalculation()">
+
+            <br>
+            <br>
+            <label for="">Số lượng: </label><input value="0" id="tags-number-plank" type="text" name=""
+                onkeyup="moneyCalculation()">
+            <label for="">Số lượng tối đa: </label><input class="input-none-edit" id="max-number-plank" type="text"
+                name="" readonly>
+            <label for="">Thành tiền: </label><input value="0" class="input-none-edit" id="tags-into-money" type="text"
+                name="" readonly>
+
+        </div>
+        <div class="line">
+            ________________________________________________________________________________________________</div>
+        <br>
+        <div class="container-covered-surface">
+            <label for="">Chọn loại mặt phủ</label>
+            <select id="select-covered-surface">
+                <option value="Tron">Ván trơn</option>
+                <option value="Min">Phủ min</option>
+                <option value="Keo">Phủ keo</option>
+                <option value="Giay">Phủ giấy</option>
+                <option value="Khac">khác</option>
+            </select>
+            <br>
+            <br>
+            <div for="Tron" class="covered-surface">
+                <label for="">Không phủ mặt</label>
+            </div>
+            <div for="Min" class="covered-surface">
+                <label for="">Mã màu: </label>
+                <input type="text" id="tags-code-surface-min" name="" onfocusout="quanlityCoverSurface()">
+                <label for="">Film: </label>
+                <select id="tags-film">
+                    <option value="S">S</option>
+                    <option value="T">T</option>
+                    <option value="G">G</option>
+                    <option value="SH">SH</option>
+                    <option value="W">W</option>
+                </select>
+                <label for="">Số lượng mặt phủ tối đa: </label><input class="input-none-edit"
+                    id="max-Number-covered-surface-min" type="text" name="" readonly>
+                <label for="">Số mặt: </label><select id="tags-number-face-min">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div for="Keo" class="covered-surface">
+                <label for="">Loại keo: </label>
+                <select id="type-glue">
+                    <option value="KeoTrong">Keo trong</option>
+                    <option value="KeoSua">Keo sữa</option>
+                    <option value="KeoMau">Keo màu</option>
+                </select>
+            </div>
+
+            <div for="Giay" class="covered-surface">
+                <label for="">Mã giấy: </label>
+                <input type="text" name="" id="tags-code-surface-giay">
+                <label for="">Số lượng mặt phủ tối đa: </label><input id="max-Number-covered-surface-giay"
+                    class="input-none-edit" type="text" name="" readonly>
+                <label for="">Số mặt: </label><select id="tags-number-face-giay">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div for="Khac" class="covered-surface">
+                <label for="">Mặt phủ khác: </label>
+                <input type="text" id="tags-covered-surface-other">
+            </div>
+            <input class="btn-submit" type="submit" id="tags-add-planks" value="Thêm ván">
+            <input class="btn-submit" type="submit" id="tags-update-plank" value="Cập nhật ván">
+        </div>
+        <div class="line">
+            ________________________________________________________________________________________________</div>
+        <br>
+        <div class="table">
+            <table>
+                <tr>
+                    <th>Loại ván - Độ dày - Loại mặt phủ - Số mặt</th>
+                    <th>Đơn giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th>Sửa - Xóa</th>
+                    <th>Ghi chú</th>
+                </tr>
+            </table>
+        </div>
+        <form action="/postCreateOrderManagement" method="post">
+            <input value="124" type="text" id="inputResMaKhachHang" name="MaKhachHang" hidden>
+            <input type="text" id="inputResTenKhachHang" name="TenKhachHang" hidden>
+            <input type="text" id="inputResDanhSachSanPham" name="DanhSachSanPham" hidden>
+            <input type="text" id="inputResCongNo" name="CongNo" hidden>
+            <input type="text" id="inputResGhiChu" name="GhiChu" hidden>
+            <input type="text" id="inputResKiemTraSoLuongVan" name="KiemTraSoLuongVan" hidden>
+            <input class="btn-submit" id="submit-create-order" type="submit" value="Tạo đơn hàng">
+        </form>
+    </fieldset>
+    <input type="text" value="{{data}}" id="my-name" hidden>
+</div>
+<script>
+    // get data from sever
+    let data = JSON.parse(document.getElementById("my-name").value);
+    let customers = data.customers;
+    let planks = data.planks;
+    let coveredSurface = data.coveredSurface;
+    // autocomplete customers
+    let autocompleteCustomers = [];
+    let compareCustomers = [];
+    // note
+    let GhiChu = [];
+    for (let i = 0; i < customers.length; i++) {
+        let codeCustomer = customers[i].MaKhachHang;
+        let nameCustomer = customers[i].TenKhachHang;
+        let debt = customers[i].CongNo;
+        compareCustomers[codeCustomer] = { "debt": debt, "nameCustomer": nameCustomer };
+        autocompleteCustomers.push(codeCustomer);
+    }
+    $(function () {
+        $("#tags-code-customer").autocomplete({
+            source: autocompleteCustomers
+        });
+    });
+    //==========check debt
+    let tagsCodeCustomer = document.getElementById("tags-code-customer");
+    let tabsNameCustomer = document.getElementById("tags-name-customer");
+    let tabsDebt = document.getElementById("debt");
+
+    tagsCodeCustomer.addEventListener("focusout", () => {
+        if (compareCustomers[tagsCodeCustomer.value]) {
+            tabsDebt.value = compareCustomers[tagsCodeCustomer.value].debt || "0";
+            tabsNameCustomer.value = compareCustomers[tagsCodeCustomer.value].nameCustomer || "";
+        }
+    })
+    // ====== autocomplete plank
+    let autocompletePlanks = [];
+    let comparePlanks = [];
+    let checkSubmitPlanks = [];
+
+    for (let i = 0; i < planks.length; i++) {
+        let codePlank = planks[i].MaVan;
+        let informationPlank = {
+            "namePlank": planks[i].TenVan,
+            "thinkness": planks[i].DoDay,
+            "amount": planks[i].SoLuong
+        }
+        autocompletePlanks.push(codePlank);
+        comparePlanks[codePlank] = informationPlank;
+        checkSubmitPlanks[codePlank] = {
+            "MaVan": planks[i].MaVan,
+            "SoLuong": planks[i].SoLuong
+        };
+    }
+
+    console.log(checkSubmitPlanks);
+    $(function () {
+        $("#tags-code-plank").autocomplete({
+            source: autocompletePlanks
+        });
+    });
+    // check quantily
+    let codeTagsPlank = document.getElementById("tags-code-plank");
+    let tagsThickness = document.getElementById("tags-thickness");
+    let maxNumberPlank = document.getElementById("max-number-plank");
+    let tagsNamePlank = document.getElementById("tags-name-plank");
+    function checkQuantily() {
+        let plank = comparePlanks[codeTagsPlank.value];
+        maxNumberPlank.value = "0";
+        tagsNamePlank.value = "";
+        if (plank) {
+            if (tagsThickness.value == plank.thinkness) {
+                maxNumberPlank.value = plank.amount || "0";
+                tagsNamePlank.value = plank.namePlank || "";
+            }
+        }
+    }
+    // select covered surface
+    let selectCoveredSurface = document.getElementById("select-covered-surface");
+    let arrayCoveredSuface = document.getElementsByClassName("covered-surface");
+    arrayCoveredSuface[0].style.display = "inline-block";
+    selectCoveredSurface.addEventListener("change", () => {
+        for (let i = 0; i < arrayCoveredSuface.length; i++) {
+            arrayCoveredSuface[i].style.display = (selectCoveredSurface.value == arrayCoveredSuface[i].getAttribute("for")) ? "inline-block" : "none";
+        }
+    })
+    // autocomplete surface 
+    let autocompleteSurface = [];
+    let compareCoveredSurface = [];
+    for (let i = 0; i < coveredSurface.length; i++) {
+        let codeColor = coveredSurface[i].MaMau;
+        let maxNumberSurface = coveredSurface[i].SoLuong;
+        compareCoveredSurface[codeColor] = { "maxNumberSurface": maxNumberSurface };
+        autocompleteSurface.push(codeColor);
+    }
+    $(function () {
+        $("#tags-code-surface-min").autocomplete({
+            source: autocompleteSurface
+        });
+    });
+    // check quanlity coveredsurface 
+    let inputMaxNumberCoveredSurfaceMin = document.getElementById("max-Number-covered-surface-min");
+    let tagCodeCoveredSurfaceMin = document.getElementById("tags-code-surface-min");
+    function quanlityCoverSurface() {
+        let maxNumberCoverSurface = compareCoveredSurface[tagCodeCoveredSurfaceMin.value];
+        inputMaxNumberCoveredSurfaceMin.value = "0";
+        if (maxNumberCoverSurface) {
+            inputMaxNumberCoveredSurfaceMin.value = maxNumberCoverSurface.maxNumberSurface;
+        }
+    }
+    // money calculation
+    let tagsUnitPrice = document.getElementById("tags-unit-price");
+    let tagsNumberPlank = document.getElementById("tags-number-plank");
+    let tagsIntoMoney = document.getElementById("tags-into-money")
+    tagsUnitPrice.value = 0;
+    tagsNumberPlank.value = 0;
+    function moneyCalculation() {
+        tagsIntoMoney.value = (+tagsUnitPrice.value) * (+tagsNumberPlank.value);
+    }
+    // ADD PLANK
+    // min
+    let tagsFilm = document.getElementById("tags-film");
+    inputMaxNumberCoveredSurfaceMin
+    let tagNumberFaceMin = document.getElementById("tags-number-face-min");
+    //table
+    let tagTablePlanks = document.getElementsByTagName("table");
+    // add plank
+    let tagsAddPlanks = document.getElementById("tags-add-planks");
+    let contentTable = `<tr>
+                    <th>Loại ván - Độ dày - Loại mặt phủ - Số mặt</th>
+                    <th>Đơn giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th>Sửa - Xóa</th>
+                    <th>Ghi chú</th>
+                </tr>`;
+    let arrayPlanks = [];
+    function removeValueInInputPlank() {
+        codeTagsPlank.value = "";
+        tagsThickness.value = "20li";
+        selectCoveredSurface.value = "Tron";
+        tagCodeCoveredSurfaceMin.value = "";
+        tagNumberFaceMin.value = "1";
+        tagsNamePlank.value = "";
+        //==========
+        tagsUnitPrice.value = "0";
+        maxNumberPlank.value = "";
+        tagsNumberPlank.value = "0";
+        tagsIntoMoney.value = "";
+        inputMaxNumberCoveredSurfaceMin.value = "0";
+        // recover suface
+        for (let i = 0; i < arrayCoveredSuface.length; i++) {
+            arrayCoveredSuface[i].style.display = (selectCoveredSurface.value == arrayCoveredSuface[i].getAttribute("for")) ? "inline-block" : "none";
+        }
+    }
+
+    function addNote() {
+        let result = "";
+        console.log("Vao add Note");
+        console.log(selectCoveredSurface.value);
+        switch (selectCoveredSurface.value) {
+            case "Min":
+                result = checkAndNote(tagsNumberPlank.value, maxNumberPlank.value, tagNumberFaceMin.value, inputMaxNumberCoveredSurfaceMin.value);
+                break;
+            case "Giay":
+                result = checkAndNote(tagsNumberPlank.value, maxNumberPlank.value, tagsNumberFaceGiay.value, inputMaxNumberCoveredSurfaceGiay.value);
+                break;
+            case "Keo":
+                result = checkAndNote(tagsNumberPlank.value, maxNumberPlank.value, 0, 1);
+                break;
+            case "Khac":
+                result = checkAndNote(tagsNumberPlank.value, maxNumberPlank.value, 0, 1);
+                break;
+            case "Tron":
+                result = checkAndNote(tagsNumberPlank.value, maxNumberPlank.value, 0, 1);
+                break;
+        }
+        return result;
+    }
+    function checkAndNote(soLuongVan, soLuongVanToiDa, soMat, soLuongToiDaMatPhu) {
+        let Note = [];
+        if ((+soLuongVan) > (+soLuongVanToiDa))
+            Note.push("Thiếu " + (soLuongVanToiDa > 0 ? (soLuongVan - soLuongVanToiDa) : soLuongVan) + " ván");
+        if ((soMat * soLuongVan) > (+soLuongToiDaMatPhu))
+            Note.push("Thiếu " + ((soMat * soLuongVan) - soLuongToiDaMatPhu) + " mặt phủ");
+        return Note.join(", ");
+    }
+    let maxNumberCoveredSurfaceGiay = document.getElementById("max-Number-covered-surface-giay");
+    let tagsCodeSurfaceGiay = document.getElementById("tags-code-surface-giay");
+    let tagsNumberFaceGiay = document.getElementById("tags-number-face-giay");
+    let typeGlue = document.getElementById("type-glue");
+    let tagsCoveredSurfaceOther = document.getElementById("tags-covered-surface-other");
+    function formatLoaiVanDoDayMatPhuSoMat() {
+        let result = codeTagsPlank.value + " " + tagsThickness.value + " ";
+        switch (selectCoveredSurface.value) {
+            case "Min":
+                result = result + selectCoveredSurface.value + " " + tagCodeCoveredSurfaceMin.value + " " + tagsFilm.value + " " + tagNumberFaceMin.value + "M";
+                break;
+            case "Giay":
+                result = result + selectCoveredSurface.value + " " + tagsCodeSurfaceGiay.value + " " + tagsNumberFaceGiay.value + "M";
+                break;
+            case "Keo":
+                result = result + selectCoveredSurface.value + " " + typeGlue.value;
+                break;
+            case "Khac":
+                result = result + tagsCoveredSurfaceOther.value;
+                break;
+        }
+        return result;
+    }
+
+    function CheckNotContentCoveredSurface() {
+        switch (selectCoveredSurface.value) {
+            case "Tron":
+                return false;
+            case "Min":
+                return tagCodeCoveredSurfaceMin.value == "";
+            case "Giay":
+                return tagCodeCoveredSurfaceMin.value == "";
+        }
+    }
+    tagsAddPlanks.addEventListener("click", () => {
+        if (tagsNamePlank.value == "") {
+            alert("Vui lòng nhập đúng mã số ván")
+        }
+        else if (CheckNotContentCoveredSurface()) {
+            alert("Vui lòng điền đủ thông tin mặt phủ");
+        }
+        else {
+            let LoaiVanDoDayMatPhuSoMat = formatLoaiVanDoDayMatPhuSoMat();
+            let index = LoaiVanDoDayMatPhuSoMat.split(" ");
+            let objectPlank = {
+                LoaiVanDoDayMatPhuSoMat: LoaiVanDoDayMatPhuSoMat,
+                TenVan: tagsNamePlank.value,
+                DonGia: tagsUnitPrice.value,
+                SoLuongToiDa: maxNumberPlank.value,
+                SoLuong: tagsNumberPlank.value,
+                ThanhTien: tagsIntoMoney.value
+            }
+            comparePlanks[index[0]].amount = comparePlanks[index[0]].amount - objectPlank.SoLuong;
+            switch (index[2]) {
+                case "Min":
+                    compareCoveredSurface[index[3]].maxNumberSurface = compareCoveredSurface[index[3]].maxNumberSurface - index[5].split("")[0] * objectPlank.SoLuong;
+                    break;
+                case "Giay":
+                    break;
+                case "Keo":
+                    break;
+                case "Tron":
+                    break;
+                case "Khac":
+                    break;
+            }
+            arrayPlanks.push(objectPlank);
+            removeValueInInputPlank();
+            fillTable();
+        }
+    })
+
+    // edit plank in table
+    let tagsUpdatePlank = document.getElementById("tags-update-plank");
+    let numberEdit = 0;
+    function ShowBtnUpdatePlank() {
+        tagsUpdatePlank.style.display = "inline-block";
+        tagsAddPlanks.style.display = "none";
+    }
+
+    function editPlank(e) {
+        ShowBtnUpdatePlank();
+
+        numberEdit = e.parentElement.getAttribute("for");
+        e.parentElement.children[1].style.display = "none";
+        e.style.display = "none";
+
+        let index = arrayPlanks[numberEdit].LoaiVanDoDayMatPhuSoMat.split(" ");
+
+        switch (index[2]) {
+            case "Min":
+                tagCodeCoveredSurfaceMin.value = index[3];
+                tagsFilm.value = index[4];
+                tagNumberFaceMin.value = index[5][0];
+                compareCoveredSurface[index[3]].maxNumberSurface = (+compareCoveredSurface[index[3]].maxNumberSurface) + index[5][0] * arrayPlanks[numberEdit].SoLuong;
+                inputMaxNumberCoveredSurfaceMin.value = compareCoveredSurface[index[3]].maxNumberSurface;
+                break;
+            case "Keo":
+                break;
+            case "Giay":
+                break;
+        }
+        comparePlanks[index[0]].amount = comparePlanks[index[0]].amount + (+arrayPlanks[numberEdit].SoLuong);
+
+        // fill form
+        codeTagsPlank.value = index[0];
+        tagsThickness.value = index[1];
+        selectCoveredSurface.value = index[2] || "Tron";
+        tagsNamePlank.value = arrayPlanks[numberEdit].TenVan;
+        tagsUnitPrice.value = arrayPlanks[numberEdit].DonGia;
+        maxNumberPlank.value = comparePlanks[index[0]].amount;
+        tagsNumberPlank.value = arrayPlanks[numberEdit].SoLuong;
+        tagsIntoMoney.value = arrayPlanks[numberEdit].ThanhTien;
+
+        for (let i = 0; i < arrayCoveredSuface.length; i++) {
+            arrayCoveredSuface[i].style.display = (selectCoveredSurface.value == arrayCoveredSuface[i].getAttribute("for")) ? "inline-block" : "none";
+        }
+    }
+
+    function hiddenBtnUpdatePlank() {
+        tagsUpdatePlank.style.display = "none";
+        tagsAddPlanks.style.display = "inline-block";
+    }
+
+    tagsUpdatePlank.addEventListener("click", () => {
+        let LoaiVanDoDayMatPhuSoMat = formatLoaiVanDoDayMatPhuSoMat();
+        let index = LoaiVanDoDayMatPhuSoMat.split(" ");
+
+
+        let objectPlank = {
+            LoaiVanDoDayMatPhuSoMat: LoaiVanDoDayMatPhuSoMat,
+            TenVan: tagsNamePlank.value,
+            DonGia: tagsUnitPrice.value,
+            SoLuongToiDa: maxNumberPlank.value,
+            SoLuong: tagsNumberPlank.value,
+            ThanhTien: tagsIntoMoney.value
+        }
+
+        comparePlanks[index[0]].amount = comparePlanks[index[0]].amount - tagsNumberPlank.value;
+
+        switch (index[2]) {
+            case "Min":
+                compareCoveredSurface[index[3]].maxNumberSurface = compareCoveredSurface[index[3]].maxNumberSurface - objectPlank.SoLuong * index[5][0]
+                break;
+            case "Giay": break;
+            case "Keo": break;
+            case "Tron": break;
+            case "Khac": break;
+        }
+
+        arrayPlanks[numberEdit] = { ...objectPlank };
+
+        hiddenBtnUpdatePlank();
+        fillTable();
+        removeValueInInputPlank();
+    })
+
+    function fillTable() {
+        let GhiChuIndex = [];
+        for (let i = 0; i < arrayPlanks.length; i++) {
+            let index = arrayPlanks[i].LoaiVanDoDayMatPhuSoMat.split(" ");
+            (comparePlanks[index[0]].amount < 0) && GhiChuIndex.push(`Thiếu ${-comparePlanks[index[0]].amount} ván ${index[0]}`);
+            switch (index[2]) {
+                case "Min":
+                    (compareCoveredSurface[index[3]].maxNumberSurface < 0) && GhiChuIndex.push(`Thiếu ${-compareCoveredSurface[index[3]].maxNumberSurface} MP Min ${index[3]}`);
+                    break;
+                case "Giay":
+                    break;
+            }
+        }
+        GhiChu = [...new Set(GhiChuIndex)];
+
+        contentTable = `<tr>
+                    <th>Loại ván - Độ dày - Loại mặt phủ - Số mặt</th>
+                    <th>Đơn giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th>Sửa - Xóa</th>
+                    <th>Ghi chú</th>
+                </tr>`;
+        for (let i = 0; i < arrayPlanks.length; i++) {
+            contentTable = contentTable + ` <tr>
+                    <td>${arrayPlanks[i].LoaiVanDoDayMatPhuSoMat}</td>
+                    <td>${arrayPlanks[i].DonGia}</td>
+                    <td>${arrayPlanks[i].SoLuong} </td>
+                    <td>${arrayPlanks[i].ThanhTien} </td>
+                    <td for=${i}><button onclick="editPlank(this)">Sửa</button>
+                    <button onclick="delectPlank(this)">Xóa</button></td>
+                    ${i == 0 ? `<td id="btn-group-edit-delect" rowspan=${arrayPlanks.length}><pre> ${GhiChu.join(`\n`)}</pre> </td>` : ``}
+                </tr>`;
+        }
+        tagTablePlanks[0].innerHTML = contentTable;
+    }
+
+    // delectPlank in table
+    function delectPlank(e) {
+        let numberDelect = e.parentElement.getAttribute("for");
+        let index = arrayPlanks[numberDelect].LoaiVanDoDayMatPhuSoMat.split(" ");
+        comparePlanks[index[0]].amount = (+comparePlanks[index[0]].amount) + (+arrayPlanks[numberDelect].SoLuong);
+
+        switch (index[2]) {
+            case "Min":
+                compareCoveredSurface[index[3]].maxNumberSurface = (+compareCoveredSurface[index[3]].maxNumberSurface) + arrayPlanks[numberDelect].SoLuong * index[5][0];
+                break;
+            case "Keo": break;
+            case "Giay": break;
+            case "Tron": break;
+            case "Khac": break;
+        }
+        // chưa có có cho mặt phủ
+        arrayPlanks.splice(numberDelect, 1);
+        fillTable();
+    }
+    // submit form create Order
+    let inputResTenKhachHang = document.getElementById("inputResTenKhachHang");
+    let inputResMaKhachHang = document.getElementById("inputResMaKhachHang");
+    let inputResDanhSachSanPham = document.getElementById("inputResDanhSachSanPham");
+    let inputResCongNo = document.getElementById("inputResCongNo");
+    let inputResGhiChu = document.getElementById("inputResGhiChu");
+
+    let inputResKiemTraSoLuongVan = document.getElementById("inputResKiemTraSoLuongVan");
+
+    let submitCreateOrder = document.getElementById("submit-create-order");
+
+    submitCreateOrder.addEventListener("click", () => {
+        let submitPlanks = [];
+        inputResMaKhachHang.value = tagsCodeCustomer.value;
+        inputResTenKhachHang.value = tabsNameCustomer.value;
+        inputResCongNo.value = tabsDebt.value;
+        inputResDanhSachSanPham.value = JSON.stringify(arrayPlanks);
+
+        for (let i = 0; i < arrayPlanks.length; i++) {
+            let index = arrayPlanks[i].LoaiVanDoDayMatPhuSoMat.split(" ")[0];
+            submitPlanks.push(checkSubmitPlanks[index]);
+        }
+        inputResKiemTraSoLuongVan.value = JSON.stringify([...new Set(submitPlanks)]);
+        inputResGhiChu.value = GhiChu.join(", ");
+        console.log(inputResGhiChu.value);
+
+    })
+</script>

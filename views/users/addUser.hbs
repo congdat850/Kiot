@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="./stylesheets/addUser.css">
+<div class="form-add-user">
+    <form action="/addUser" method="post">
+        <fieldset>
+            <legend>THÊM NHÂN VIÊN MỚI</legend>
+            <label for="">Họ và tên: </label><br>
+            <input type="text" name="Ten">
+            <br>
+            <label for="">Email: </label><br>
+            <input type="text" name="Email">
+            <br>
+            <label for="">Địa chỉ: </label><br>
+            <input type="text" name="DiaChi">
+            <br>
+            <label for="">Số điện thoại: </label><br>
+            <input type="text" name="Sdt">
+            <br>
+            <label for="">Ngày sinh: </label><br>
+            <input type="text" name="NgaySinh">
+            <br>
+            <label for="">Chức vụ: </label><br>
+            <select name="ChucVu" id="">
+                <option value="Admin">Admin</option>
+                <option value="Sale">Người mua bán hàng</option>
+                <option value="">Quản lý sản xuất</option>
+                <option value="">Kế toán</option>
+            </select>
+            <br><br>
+            <input class="btn-submit" type="submit" value="Submit">
+        </fieldset>
+    </form>
+</div>

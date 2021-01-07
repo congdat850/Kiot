@@ -1,24 +1,25 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var session = require("express-session");
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const session = require("express-session");
 const hbs = require("hbs");
 
-var authention=require("./middlewares/authention");
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var Login=require("./contronllers/LoginController");
-var login= new Login();
+const authention=require("./middlewares/authention");
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+// var Login=require("./contronllers/LoginController");
+// var login= new Login();
 
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerHelper("inc",(value,options)=> {return (+value)+1});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -32,10 +33,10 @@ app.use(session({
   saveUninitialized: true,
   cookie:{ maxAge: 30*60*1000 }
 }))
-app.get("/login",login.getLogin);
-app.post("/login",login.postLogin);
-app.get("/register",login.getRegister);
-app.post("/register",login.postRegister);
+// app.get("/login",login.getLogin);
+// app.post("/login",login.postLogin);
+// app.get("/register",login.getRegister);
+// app.post("/register",login.postRegister);
 app.use('/', authention.authention,indexRouter);
 app.use('/users', usersRouter);
 

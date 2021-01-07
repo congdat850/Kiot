@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="/stylesheets/listUser.css">
+<table id="customers">
+    <tr>
+        <th>Mã nhân viên</th>
+        <th>Tên nhân viên</th>
+        <th>Email</th>
+        <th>Địa chỉ</th>
+        <th>Số điện thoại</th>
+        <th>Ngày sinh</th>
+        <th>Chức vụ</th>
+    </tr>
+    {{#each users}}
+    <tr>
+        <td>{{this.Ma}}</td>
+        <td>{{this.Ten}}</td>
+        <td>{{this.Email}}</td>
+        <td>{{this.DiaChi}}</td>
+        <td>{{this.Sdt}}</td>
+        <td>{{this.NgaySinh}}</td>
+        <td>{{this.ChucVu}}</td>
+    </tr>
+    {{/each}}
+</table>

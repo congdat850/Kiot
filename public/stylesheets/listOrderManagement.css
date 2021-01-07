@@ -1,0 +1,129 @@
+#customers{
+    border-collapse:collapse ;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+#customers td, #customer th {
+    border:  1px solid #ddd;
+    padding: 0px 0px;
+    text-align: center;
+}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+}
+.detail{
+    position: fixed;
+    width: 90vw;
+    height: 80vh;
+    display: none;
+    background: white;
+    left: 4vw;
+    border: 3px black solid;
+    font-size: 17px;
+    top: 10vh;
+}
+
+.detail p {
+    display: inline-block;
+    margin: 5px;
+}
+
+.table{
+    width: 90%;
+    margin: auto;
+    height: 50%;
+    background: white;
+    display: block;
+    left: 10vw;
+    overflow: scroll;
+    border: 1px #ccc solid;
+}
+.item{
+    white-space: nowrap;
+}
+.information{
+    margin-left: 5%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.close {
+    width: auto;
+    height: auto;
+    font-size: 20px;
+    color: red;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+div.content {
+    display: table;
+    width: 99.8%;
+    border: 0.5px solid black;
+    text-align: center;
+}
+
+div.content header, div.content main section {
+    display: table-row;
+    border: 0.5px solid black;
+}
+
+span.title,span.avail,span.list {
+    display: table-cell;
+    width: auto;
+    border: 0.5px solid black;
+}
+
+main { display: table-row-group }
+span{
+    padding: 8px;
+}
+
+div.content header{
+    font-weight: bold;
+}
+.block-select-process{
+    display: none;
+    color: white;
+}
+
+select.process {
+    height: 30px;
+    text-align: center;
+}
+
+span.title-information{
+    font-weight: bold;
+}
+
+.title-note{
+    color: red;
+}
+
+.tool{
+    width: 90%;
+    margin-left:5% ;
+}
+
+.search{
+    width: 48.5%;
+    padding: 5px;
+    border: solid 1px black;
+    display: inline-block;
+}
+.sort{
+    width: 48.5%;
+    padding: 5px;
+    border: solid 1px black;
+    display: inline-block;
+}

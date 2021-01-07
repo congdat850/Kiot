@@ -1,0 +1,83 @@
+.form-add-order
+{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 10px;
+}
+input{
+
+    font-size: 15px;
+}
+select{
+  
+    font-size: 15px;
+}
+.btn-submit{
+    background-color: #13aa52;
+    height: 34px;
+    width: auto;
+    border: none;
+    color: white;
+}
+.covered-surface input{
+ width: 70px;   
+}
+.covered-surface .btn-submit{
+    width: auto;
+    margin-left: 10px;
+}
+
+.table{
+    width: 90%;
+    margin: auto;
+    height: 20vh;
+    background: white;
+    display: block;
+    left: 10vw;
+    overflow: scroll;
+    border: 1px #ccc solid;
+    margin-bottom: 10px;
+}
+.item{
+    white-space: nowrap;
+}
+
+.table p {
+    display: inline-block;
+    margin: 5px;
+}
+
+.input-none-edit{
+    background: #e4dedc;
+    border: none;
+}
+
+input#max-number-plank{
+    width: 100px;
+}
+
+input#tags-number-plank{
+    width: 100px;
+}
+
+.covered-surface{
+    display: none;
+}
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  table{
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+  }
+  #tags-update-plank{
+      display: none;
+  }
+  pre{
+      font-size: 15px;
+      margin: 0;
+  }
+  
+  

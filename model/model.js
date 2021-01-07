@@ -1,65 +1,71 @@
-var MongoClient=require("mongodb").MongoClient;
-var url="mongodb://datnc:dat123456@ds215019.mlab.com:15019/kiot"
 
-var dbo;
 
+let MongoClinet=require('mongodb').MongoClient;
+let url= "mongodb+srv://datnc:Datnc123456@cluster0.5ajak.mongodb.net/CtyGoAChau?retryWrites=true&w=majority";
+let dbo;
 class Model{
   constructor()
   {
-    MongoClient.connect(url,{useUnifiedTopology: true,useNewUrlParser: true},(err,db)=>{
-      if(err) throw err;
-      console.log("START CONNECT DB");
-      dbo=db.db("kiot");
+    MongoClinet.connect(url,{ useUnifiedTopology: true ,useNewUrlParser: true},function(err, db){
+      if (err) throw err;
+      console.log("connect DB");
+      dbo=db.db("CtyGoAChau");
     })
   }
   // user
-  async findUser(query)
+  async GetListUser(query)
   {
-    var result = await dbo.collection("users").findOne(query);
+    let result = await dbo.collection("NhanVien").find({}).toArray();
+    return result; 
+  }
+
+  async insertUser(query)
+  {
+    var result= await dbo.collection("NhanVien").insertOne(query);
     return result;
   }
-  async findAllUser()
+  // customer
+  async GetListCustomer(query)
   {
-    var result = await dbo.collection("users").find({}).toArray();
+    let result = await dbo.collection("KhachHang").find({}).toArray();
+    return result; 
+  }
+  async GetListWarehousePlank(query)
+  {
+    let result = await dbo.collection("KhoVan").find({}).toArray();
     return result;
   }
-  async insertUser(user)
+  // Order management
+  async GetListOrderManagement(query)
   {
-    var result= await dbo.collection("users").insertOne(user);
-    return result;
-  }
-  // product
-  async insertProduct(product)
-  {
-    var result = await dbo.collection("products").insertOne(product);
+    let result = await dbo.collection("LenDon").find({}).toArray();
     return result;
   }
 
-  async findAllProduct()
+  async ChangeOrderProcess(query,newvalues)
   {
-    var result= await dbo.collection("products").find({}).toArray();
+    let result =  await dbo.collection("LenDon").updateOne(query,{$set:newvalues});
     return result;
   }
-  async findProduct(query)
+
+  async FindMultiplePlank(query)
   {
-    var result= await dbo.collection("products").findOne(query);
-    return result
-  }
-  async updateProduct(myquery,newvalue)
-  {
-    var result = await dbo.collection("products").updateOne(myquery,{$set:newvalue});
+    let result = await dbo.collection("KhoVan").find({$or:query}).toArray();
     return result;
   }
-  //Deal
-  async insertDeal(data)
+
+  async InsertNewOrder(query)
   {
-    var result = await dbo.collection("deals").insertOne(data);
+    let result =  await dbo.collection("LenDon").insertOne(query)
     return result;
   }
-  async getAllDeal()
+  //Covered Surface
+  async GetListWarehouseCoverSurface(query)
   {
-    var result= await dbo.collection("deals").find({}).toArray();
+    let result = await dbo.collection("KhoMatPhu").find({}).toArray();
     return result;
   }
+
+ 
 }
 module.exports= new Model();

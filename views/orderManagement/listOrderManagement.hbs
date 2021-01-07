@@ -1,0 +1,189 @@
+<link rel="stylesheet" href="/stylesheets/listOrderManagement.css">
+
+<div class="tool">
+    <div class="search">
+        <label for="">Tìm kiếm:</label> <input type="text" value="" id="input-search">
+        <button id="btn-search">Tìm kiếm</button>
+        <label for="">Thể loại</label>
+        <select id="select-search">
+            <option value="MaLenDon" selected="selected"> Mã đơn hàng</option>
+            <option value="MaKhachHang">Mã khách hàng</option>
+            <option value="TenKhachHang">Tên khách hàng</option>
+            <option value="NguoiLenDon">Người lên đơn</option>
+        </select>
+    </div>
+    <div class="sort">
+        <label for="">Sắp xếp theo: </label>
+        <select id="select-sort">
+            <option value="NgayLenDon" selected="selected">Ngày lên đơn</option>
+            <option value="SanXuat">Sản xuất</option>
+            <option value="ThieuHang">Thiếu hàng</option>
+            <option value="DaGiao">Đã giao</option>
+            <option value="SanXuatXong">Sản xuất xong</option>
+            <option value="HuyDon">Hủy đơn</option>
+        </select>
+        <button id="btn-sort">Săp xếp</button>
+    </div>
+</div>
+
+<table id="customers">
+    <tr>
+        <th>STT</th>
+        <th>Mã đơn hàng</th>
+        <th>Mã khách hành</th>
+        <th>Tên khách hành</th>
+        <th>Người lên đơn</th>
+        <th>Ngày lên đơn</th>
+        <th>Chi titet</th>
+        <th>Tiến độ</th>
+    </tr>
+    {{#each orders}}
+    <tr>
+        <td>{{inc @index}}</td>
+        <td>{{this.MaLenDon}}</td>
+        <td>{{this.MaKhachHang}}</td>
+        <td>{{this.TenKhachHang}}</td>
+        <td>{{this.NguoiLenDon}}</td>
+        <td>{{this.NgayLenDon}}</td>
+        <td> <button for={{@index}} class="seen-detail">xem chi tiết</button></button></td>
+        <td><select class="process">
+                <option value="{{this.TienDo}}" selected="selected"> {{this.TienDo}}</option>
+                <option value="Thiếu hàng">Thiếu hàng</option>
+                <option value="Sản xuất">Sản xuất</option>
+                <option value="Sản xuất xong">Sản xuất xong</option>
+                <option value="Đã giao">Đã giao</option>
+                <option value="Hủy đơn">Hủy đơn</option>
+            </select>
+            <span class="block-select-process">{{this.TienDo}}</span>
+        </td>
+    </tr>
+
+    <div class="detail">
+        <div class="close"><i class="far fa-window-close"></i></div>
+        <div class="information">
+            <label for=""><span class="title-information">Mã đơn hàng:</span> </label>
+            <p>{{this.MaLenDon}}</p><br>
+            <label for=""><span class="title-information">Mã khách hàng:</span> </label>
+            <p>{{this.MaKhachHang}}</p><br>
+            <label for=""><span class="title-information">Tên khách hàng:</span> </label>
+            <p>{{this.TenKhachHang}}</p><br>
+            <label for=""><span class="title-information">Người lên đơn:</span> </label>
+            <p>{{this.NguoiLenDon}}</p><br>
+            <label for=""><span class="title-information">Ngày lên đơn:</span> </label>
+            <p>{{this.NgayLenDon}}</p><br>
+            <label for=""><span class="title-information title-note">Ghi chú:</span> </label>
+            <p>{{this.GhiChu}}</p><br>
+        </div>
+        <div class="table">
+            <div class="content">
+                <header>
+                    <span class="title">STT</span>
+                    <span class="title">Loại ván - Độ giày - Loại mặt phủ - Số mặt</span>
+                    <span class="title">Tên ván</span>
+                    <span class="title">Đơn giá</span>
+                    <span class="title">Số lượng</span>
+                    <span class="title">Thành tiền</span>
+                </header>
+                <main>
+                    {{#each this.ChiTietDon}}
+                    <section id="item-1">
+                        <span class="list">{{inc @index}}</span>
+                        <span class="list">{{this.LoaiVanDoDayMatPhuSoMat}}</span>
+                        <span class="list">{{this.TenVan}}</span>
+                        <span class="list">{{this.DonGia}}</span>
+                        <span class="list">{{this.SoLuong}}</span>
+                        <span class="list">{{this.ThanhTien}}</span>
+                    </section>
+                    {{/each}}
+                </main>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</table>
+
+
+<script>
+    let seenDetail = document.getElementsByClassName("seen-detail");
+    let close = document.getElementsByClassName("close");
+    let detail = document.getElementsByClassName("detail");
+    let changeSelect = document.getElementsByClassName("process");
+    let inputSearch = document.getElementById("input-search");
+    let btnSearch = document.getElementById("btn-search");
+    let selectSearch = document.getElementById("select-search");
+    let selectSort= document.getElementById("select-sort");
+    let btnSort=document.getElementById("btn-sort");
+    let indexDetail;
+
+    for (let i = 0; i < seenDetail.length; i++) {
+        seenDetail[i].addEventListener("click", (ele) => {
+            indexDetail = ele.target.getAttribute("for");
+            detail[indexDetail].style.display = "block";
+        })
+    }
+    for (let i = 0; i < close.length; i++) {
+        close[i].addEventListener("click", () => {
+            detail[indexDetail].style.display = "none";
+        })
+    }
+    for (let i = 0; i < changeSelect.length; i++) {
+        changeSelect[i].addEventListener("change", () => {
+            let id = changeSelect[i].parentElement.parentElement.children[1].textContent;
+            let process = changeSelect[i].value;
+            if (confirm("Bạn có muốn thay đổi đơn hàng có mã số " + id + " thành " + process))
+                $.ajax({
+                    /* beforeSend: (request) => {
+                         return confirm("Bạn có muốn thay đổi đơn hàng có mã số " + id + " thành " + process);
+                     },*/
+                    method: "post",
+                    url: "/postProcess",
+                    data: { data: JSON.stringify({ "id": +id, "process": process }) }
+                    , success: (r) => {
+                        console.log(r);
+                        location.reload();
+                    }
+                });
+            else location.reload();
+        })
+    }
+    (() => {
+        for (let i = 0; i < changeSelect.length; i++) {
+            switch (changeSelect[i].value) {
+                case "Thiếu hàng":
+                    changeSelect[i].parentElement.style.background = "red";
+                    break;
+                case "Sản xuất":
+                    changeSelect[i].parentElement.style.background = "yellow";
+                    break;
+                case "Sản xuất xong":
+                    changeSelect[i].parentElement.style.background = "green";
+                    break;
+                case "Đã giao":
+                    changeSelect[i].parentElement.style.background = "blue";
+                    changeSelect[i].nextElementSibling.style.display = "block";
+                    changeSelect[i].style.display = "none"
+                    break;
+                case "Hủy đơn":
+                    changeSelect[i].parentElement.style.background = "gray";
+                    changeSelect[i].nextElementSibling.style.display = "block";
+                    changeSelect[i].style.display = "none"
+                    break;
+            }
+        }
+    })();
+
+    btnSearch.addEventListener("click", () => {
+        let contentSearch = inputSearch.value;
+        let typeSearch = selectSearch.value;
+        let typeSort = selectSort.value;
+        $.ajax({
+            method: "post",
+            url: "/postSearchOrder",
+            data: { data: JSON.stringify({ "contentSearch": contentSearch, "typeSearch": typeSearch,"typeSort":typeSort }) }
+            , success: (r) => {
+                console.log(r);
+                //location.reload();
+            }
+        });
+    })
+</script>

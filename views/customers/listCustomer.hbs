@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/stylesheets/listCustomer.css">
+<table id="customers">
+    <tr>
+        <th>Mã khách hàng</th>
+        <th>Tên khách hàng</th>
+        <th>Đơn vị</th>
+        <th>Đỉa chỉ</th>
+        <th>Số điện thoại</th>
+        <th>Công nợ</th>
+    </tr>
+    {{#each customers}}
+    <tr>
+        <td>{{this.MaKhachHang}}</td>
+        <td>{{this.TenKhachHang}}</td>
+        <td>{{this.DonVi}}</td>
+        <td>{{this.DiaChi}}</td>
+        <td>{{this.Sdt}}</td>
+        <td>{{this.CongNo}}</td>
+    </tr>
+    {{/each}}
+</table>
