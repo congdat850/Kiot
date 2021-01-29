@@ -1,23 +1,12 @@
 const { json, query } = require("express");
 const model = require("../model/model");
 const { param } = require("../routes");
+
 class Order {
     async GetListOrderManagement(req, res) {
         let data = req.query;
         let result = [];
-        if (data.Search && data.typeSearch) {
-            switch (data.typeSearch) {
-                case "MaLenDon":
-                    result = await model.GetListOrderManagement(); break;
-                case "MaKhachHang":
-                    result = await model.GetListOrderManagement(); break;
-                case "TenKhachHang":
-                    result = await model.GetListOrderManagement(); break;
-                case "NguoiLenDon":
-                    result = await model.GetListOrderManagement(); break;
-            }
-        }
-        result = await model.GetListOrderManagement();
+        result = await model.GetListOrderManagement(data);
         res.render("orderManagement/listOrderManagement", { notIsLogin: true, orders: result });
     }
     async PostProcess(req, res) {
@@ -61,9 +50,16 @@ class Order {
         else res.redirect('/createOrderManagement');
     }
     async PostSearchOrder(req, res) {
-        const data = JSON.parse(req.body.data);
-        if (data.contentSearch)
-            res.redirect("/orderManagement?Search=" + data.contentSearch + "&typeSearch=" + data.typeSearch);
+        const data = req.body;
+        console.log(data);
+        if (data.contentSearch) res.redirect("/orderManagement?contentSearch=" + data.contentSearch + "&typeSearch=" + data.typeSearch);
+        else res.redirect("/orderManagement");
+    }
+
+    async PostFilterOder(req, res) {
+        const data = req.body;
+        console.log(data);
+        if (data.filterProcess) res.redirect("/orderManagement?filterProcess=" + data.filterProcess + "&fromDate=" + data.fromDate + "&toDate=" + data.toDate);
         else res.redirect("/orderManagement");
     }
 }

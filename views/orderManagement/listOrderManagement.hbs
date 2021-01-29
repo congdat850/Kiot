@@ -2,27 +2,40 @@
 
 <div class="tool">
     <div class="search">
-        <label for="">Tìm kiếm:</label> <input type="text" value="" id="input-search">
-        <button id="btn-search">Tìm kiếm</button>
-        <label for="">Thể loại</label>
-        <select id="select-search">
-            <option value="MaLenDon" selected="selected"> Mã đơn hàng</option>
-            <option value="MaKhachHang">Mã khách hàng</option>
-            <option value="TenKhachHang">Tên khách hàng</option>
-            <option value="NguoiLenDon">Người lên đơn</option>
-        </select>
+        <form action="/postSearchOrder" method="post">
+            <label for="">Tìm kiếm:</label> <input type="text" value="" name="contentSearch" id="input-search">
+            <label for="">Thể loại</label>
+            <select id="select-search" name="typeSearch">
+                <option value="MaLenDon" selected="selected"> Mã đơn hàng</option>
+                <option value="MaKhachHang">Mã khách hàng</option>
+                <option value="TenKhachHang">Tên khách hàng</option>
+                <option value="NguoiLenDon">Người lên đơn</option>
+            </select>
+            {{!-- <input id="typeFilter" type="text" name="typeFilter" hidden> --}}
+            <button id="btn-search" type="submit">Tìm kiếm</button>
+        </form>
+        <br>
+        <br>
     </div>
-    <div class="sort">
-        <label for="">Sắp xếp theo: </label>
-        <select id="select-sort">
-            <option value="NgayLenDon" selected="selected">Ngày lên đơn</option>
-            <option value="SanXuat">Sản xuất</option>
-            <option value="ThieuHang">Thiếu hàng</option>
-            <option value="DaGiao">Đã giao</option>
-            <option value="SanXuatXong">Sản xuất xong</option>
-            <option value="HuyDon">Hủy đơn</option>
-        </select>
-        <button id="btn-sort">Săp xếp</button>
+    <div class="filter">
+        <form action="/postFilterOder" method="post">
+            <label for="">Lọc theo tiến trình: </label>
+            <select name="filterProcess" id="select-filter">
+                <option selected value="TatCa">Tất cả</option>
+                <option value="SanXuat">Sản xuất</option>
+                <option value="ThieuHang">Thiếu hàng</option>
+                <option value="DaGiao">Đã giao</option>
+                <option value="SanXuatXong">Sản xuất xong</option>
+                <option value="HuyDon">Hủy đơn</option>
+            </select>
+            <br>
+            <br>
+            <label for="birthday">Từ ngày:</label>
+            <input type="date" id="from-date" name="fromDate">
+            <label for="birthday">Đến ngày:</label>
+            <input type="date" id="to-date" name="toDate">
+            <button id="btn-filter" type="submit">Lọc</button>
+        </form>
     </div>
 </div>
 
@@ -102,6 +115,12 @@
     {{/each}}
 </table>
 
+{{!-- <form id="form-for-search" action="/postSearchOrder" method="post">
+    <input name="contentSearch" type="text">
+    <input name="typeSearch" type="text">
+    <input name="typeSort" type="text">
+    <button type="submit">submit</button>
+</form> --}}
 
 <script>
     let seenDetail = document.getElementsByClassName("seen-detail");
@@ -111,9 +130,11 @@
     let inputSearch = document.getElementById("input-search");
     let btnSearch = document.getElementById("btn-search");
     let selectSearch = document.getElementById("select-search");
-    let selectSort= document.getElementById("select-sort");
-    let btnSort=document.getElementById("btn-sort");
+    let selectFilter = document.getElementById("select-filter");
+    let btnFilter = document.getElementById("btn-filter");
     let indexDetail;
+
+
 
     for (let i = 0; i < seenDetail.length; i++) {
         seenDetail[i].addEventListener("click", (ele) => {
@@ -172,18 +193,25 @@
         }
     })();
 
-    btnSearch.addEventListener("click", () => {
-        let contentSearch = inputSearch.value;
-        let typeSearch = selectSearch.value;
-        let typeSort = selectSort.value;
-        $.ajax({
-            method: "post",
-            url: "/postSearchOrder",
-            data: { data: JSON.stringify({ "contentSearch": contentSearch, "typeSearch": typeSearch,"typeSort":typeSort }) }
-            , success: (r) => {
-                console.log(r);
-                //location.reload();
-            }
-        });
-    })
+    /* btnSearch.addEventListener("click", () => {
+          let typeFilter = selectFilter.value;
+          let inputTypeFilter = document.getElementById("typeFilter");
+          inputTypeFilter.value = typeFilter;
+    })*/
+
+    //==============
+
+
+    function filterDate() {
+        let inputFromDate = document.getElementById("from-date").value;
+        let inputToDate = document.getElementById("to-date").value;
+        if (fromDate.value && toDate.value) {
+            console.log(fromDate.value + "và " + toDate.value);
+            let fromDate = new Date(inputFromDate);
+            let toDate = new Date(inputToDate);
+        }
+        else {
+            console.log("thêm dữ liệu")
+        }
+    }
 </script>

@@ -26,6 +26,7 @@ router.post("/postProcess",orderManagementController.PostProcess);
 router.get("/createOrderManagement",orderManagementController.GetCreateOrderManagement);
 router.post("/postCreateOrderManagement",orderManagementController.PostCreateOrderManagement);
 router.post("/postSearchOrder",orderManagementController.PostSearchOrder);
+router.post("/postFilterOder", orderManagementController.PostFilterOder);
 // router.get("/GetDataAutocomplete",orderManagementController.GetDataAutocomplete);
 // GET CoveredSurface
 router.get("/coveredSurface",coveredSurfaceController.GetListWarehouseCoverSurface);
