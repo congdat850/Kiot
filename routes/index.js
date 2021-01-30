@@ -18,8 +18,16 @@ router.get("/addUser",userController.GetAddUser);
 router.post("/addUser", userController.PostAddUser)
 //GET Customer
 router.get("/customer",customer.GetListCustomer);
+router.get("/addCustomer",customer.getAddCustomer);
+router.post("/addCustomer",customer.postAddCustomer);
+router.delete("/deleteCustomer/:id",customer.postDeleteCustomer);
+router.post("/updateCustomer",customer.postUpdateCustomer)
 //GET plank 
 router.get("/warehousePlank",plankController.GetListWarehousePlank);
+router.get("/addPlank",plankController.CreatePlank );
+router.post("/addPlank",plankController.postAddPlank);
+router.get("/listImportPlanks",plankController.getListImportPlanks);
+router.get("/listExportPlanks",plankController.getListExportPlanks);
 //Get order
 router.get("/orderManagement", orderManagementController.GetListOrderManagement);
 router.post("/postProcess",orderManagementController.PostProcess);
@@ -30,4 +38,7 @@ router.post("/postFilterOder", orderManagementController.PostFilterOder);
 // router.get("/GetDataAutocomplete",orderManagementController.GetDataAutocomplete);
 // GET CoveredSurface
 router.get("/coveredSurface",coveredSurfaceController.GetListWarehouseCoverSurface);
+router.get("/addCoveredSurface",coveredSurfaceController.CreateCoveredSurface);
+router.post("/addCoveredSurface",coveredSurfaceController.postAddPCoveredSurface);
+router.get("/listImportCoverSurface",coveredSurfaceController.listImportCoverSurface);
 module.exports = router;

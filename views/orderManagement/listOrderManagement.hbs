@@ -61,11 +61,11 @@
         <td> <button for={{@index}} class="seen-detail">xem chi tiết</button></button></td>
         <td><select class="process">
                 <option value="{{this.TienDo}}" selected="selected"> {{this.TienDo}}</option>
-                <option value="Thiếu hàng">Thiếu hàng</option>
-                <option value="Sản xuất">Sản xuất</option>
-                <option value="Sản xuất xong">Sản xuất xong</option>
-                <option value="Đã giao">Đã giao</option>
-                <option value="Hủy đơn">Hủy đơn</option>
+                <option value="ThieuHang">Thiếu hàng</option>
+                <option value="SanXuat">Sản xuất</option>
+                <option value="SanXuatXong">Sản xuất xong</option>
+                <option value="DaGiao">Đã giao</option>
+                <option value="HuyDon">Hủy đơn</option>
             </select>
             <span class="block-select-process">{{this.TienDo}}</span>
         </td>
@@ -170,37 +170,33 @@
     (() => {
         for (let i = 0; i < changeSelect.length; i++) {
             switch (changeSelect[i].value) {
-                case "Thiếu hàng":
+                case "ThieuHang":
                     changeSelect[i].parentElement.style.background = "red";
+                    changeSelect[i].getElementsByTagName("option")[0].textContent="Thiếu hàng"
                     break;
-                case "Sản xuất":
+                case "SanXuat":
                     changeSelect[i].parentElement.style.background = "yellow";
+                    changeSelect[i].getElementsByTagName("option")[0].textContent="Sản xuất"
                     break;
-                case "Sản xuất xong":
+                case "SanXuatXong":
                     changeSelect[i].parentElement.style.background = "green";
+                    changeSelect[i].getElementsByTagName("option")[0].textContent="Sản xuất xong"
                     break;
-                case "Đã giao":
+                case "DaGiao":
                     changeSelect[i].parentElement.style.background = "blue";
                     changeSelect[i].nextElementSibling.style.display = "block";
                     changeSelect[i].style.display = "none"
+                    changeSelect[i].getElementsByTagName("option")[0].textContent="Đã giao"
                     break;
-                case "Hủy đơn":
+                case "HuyDon":
                     changeSelect[i].parentElement.style.background = "gray";
                     changeSelect[i].nextElementSibling.style.display = "block";
                     changeSelect[i].style.display = "none"
+                    changeSelect[i].getElementsByTagName("option")[0].textContent="Hủy đơn"
                     break;
             }
         }
     })();
-
-    /* btnSearch.addEventListener("click", () => {
-          let typeFilter = selectFilter.value;
-          let inputTypeFilter = document.getElementById("typeFilter");
-          inputTypeFilter.value = typeFilter;
-    })*/
-
-    //==============
-
 
     function filterDate() {
         let inputFromDate = document.getElementById("from-date").value;

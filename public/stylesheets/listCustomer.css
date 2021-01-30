@@ -20,3 +20,47 @@
     color: white;
     text-align: center;
 }
+
+
+.form-edit-customer{
+    font-size: 20px;
+    width: 40%;
+    margin-left: 25%;
+    margin-top: 10px;
+    position: fixed;
+    background: white;
+    padding: 5%;
+    top: 10vh;
+    border: 1px solid;
+    display: none;
+}
+input{
+    width: 60%;
+    font-size: 15px;
+}
+select{
+    width: 60%;
+    font-size: 15px;
+}
+.btn-submit{
+    background-color: #13aa52;
+    height: 34px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+
+}
+
+.close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    align-content: center;
+    padding: 3px;
+}
+
+.input-none-edit {
+    background: #e4dedc;
+    border: none;
+}

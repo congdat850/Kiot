@@ -1,21 +1,96 @@
 <link rel="stylesheet" href="/stylesheets/listCustomer.css">
-<table id="customers">
-    <tr>
-        <th>Mã khách hàng</th>
-        <th>Tên khách hàng</th>
-        <th>Đơn vị</th>
-        <th>Đỉa chỉ</th>
-        <th>Số điện thoại</th>
-        <th>Công nợ</th>
-    </tr>
-    {{#each customers}}
-    <tr>
-        <td>{{this.MaKhachHang}}</td>
-        <td>{{this.TenKhachHang}}</td>
-        <td>{{this.DonVi}}</td>
-        <td>{{this.DiaChi}}</td>
-        <td>{{this.Sdt}}</td>
-        <td>{{this.CongNo}}</td>
-    </tr>
-    {{/each}}
-</table>
+<div>
+
+
+    <table id="customers">
+        <tr>
+            <th>Mã khách hàng</th>
+            <th>Tên khách hàng</th>
+            <th>Email</th>
+            <th>Đơn vị</th>
+            <th>Đỉa chỉ</th>
+            <th>Số điện thoại</th>
+            <th>Công nợ</th>
+            <th></th>
+        </tr>
+        {{#each customers}}
+        <tr>
+            <td>{{this.MaKhachHang}}</td>
+            <td>{{this.TenKhachHang}}</td>
+            <td>{{this.Email}}</td>
+            <td>{{this.DonVi}}</td>
+            <td>{{this.DiaChi}}</td>
+            <td>{{this.Sdt}}</td>
+            <td>{{this.CongNo}}</td>
+            <td><button onclick="editCustomer(this)">Sửa</button>
+                <button id="{{this.MaKhachHang}}" onClick="deleteCustomer(this.id)">xóa</button>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+
+    <div class="form-edit-customer">
+        <form action="/updateCustomer" method="post">
+            <div class="close" onClick="closeEditCustomer()">X</div>
+            <label for="">Mã khách hành: </label><br>
+            <input class="input-none-edit" type="text" name="MaKhachHang" readonly>
+            <br>
+            <label for="">Họ và tên khách hàng: </label><br>
+            <input class="input-none-edit" type="text" name="TenKhachHang" readonly>
+            <br>
+            <label for="">Email: </label><br>
+            <input type="text" name="Email">
+            <br>
+            <label for="">Đơn vị: </label><br>
+            <input type="text" name="DonVi">
+            <br>
+            <label for="">Địa chỉ: </label><br>
+            <input type="text" name="DiaChi">
+            <br>
+            <label for="">Số điện thoại: </label><br>
+            <input type="text" name="Sdt">
+            <br>
+            <label for="">Công nợ: </label><br>
+            <input type="text" name="CongNo">
+            <br><br>
+            <input class="btn-submit" type="submit" value="Chỉnh sửa khách hàng">
+        </form>
+    </div>
+
+</div>
+<script>
+    let FormEditCustomer = document.getElementsByClassName("form-edit-customer")[0];
+    function deleteCustomer(id) {
+        console.log(id);
+        if (confirm(`Bạn có chắc muốn xóa khách hành có mã số ${id}`))
+            $.ajax({
+                type: "DELETE",
+                url: "/deleteCustomer/" + id,
+                success: function (res) {
+                    window.location.reload()
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+    }
+
+    function editCustomer(element) {
+        FormEditCustomer.style.display = "block";
+        let ArrayInputForm = FormEditCustomer.getElementsByTagName("input");
+        let ArrayInformationCustomer = element.parentElement.parentElement.getElementsByTagName("td");
+        for (let i = 0; i < 7; i++) {
+            ArrayInputForm[i].value = ArrayInformationCustomer[i].textContent;
+        }
+    }
+
+    function closeEditCustomer() {
+        FormEditCustomer.style.display = "none";
+        let ArrayInputForm = FormEditCustomer.getElementsByTagName("input");
+        for (let i = 0; i < 7; i++) {
+            ArrayInputForm[i].value = "";
+        }
+    }
+
+
+</script>

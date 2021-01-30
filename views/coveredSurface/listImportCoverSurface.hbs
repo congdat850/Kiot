@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="/stylesheets/listWarehousePlank.css">
+<table id="customers">
+    <tr>
+        <th>Mã nhập</th>
+        <th>Ngày nhập</th>
+        <th>Mã màu</th>
+        <th>Loại mặt phủ</th>
+        <th>Số lượng</th>
+    </tr>
+    {{#each coverSurfaces}}
+    <tr>
+        <td>{{this.MaNhap}}</td>
+        <td>{{this.NgayNhap}}</td>
+        <td>{{this.MaMau}}</td>
+        <td>{{this.LoaiMatPhu}}</td>
+        <td>{{this.SoLuong}}</td>
+    </tr>
+    {{/each}}
+</table>

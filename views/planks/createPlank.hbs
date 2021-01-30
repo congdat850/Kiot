@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="./stylesheets/createPlank.css">
+<div class="form-add-user">
+    <form action="/addPlank" method="post">
+        <fieldset>
+            <legend>NHẬP VÁN</legend>
+            <label for="">*Mã ván: </label><br>
+            <input type="text" name="MaVan">
+            <br>
+            <label for="">*Tên ván: </label><br>
+            <input type="text" name="TenVan">
+            <br>
+         
+            <label for="">*Độ giày: </label>
+            <select name="DoDay" id="">
+                <option value="20li">20li</option>
+                <option value="18li">18li</option>
+                <option value="17li">17li</option>
+                <option value="15li">15li</option>
+                <option value="14li">14li</option>
+            </select>
+         
+            <br>
+            <label for="">*Nhà cung cấp: </label><br>
+            <input type="text" name="NhaCungCap">
+            <br>
+  
+            <label for="">*Chống ẩm: </label>
+            <label >Có</label>
+            <input type="radio"  name="ChongAm" value="Có">
+            <label >Không</label>
+            <input checked="checked" type="radio"  name="ChongAm" value="Không">
+            <br>
+         
+            <label for="">*Đơn giá nhập: </label><br>
+            <input type="text" name="DonGia">
+            <br>
+           
+            <label for="">*Số lượng: </label><br>
+            <input type="number" min="1" name="SoLuong">
+            <br><br>
+            <input class="btn-submit" type="submit" value="Nhập ván">
+        </fieldset>
+    </form>
+</div>

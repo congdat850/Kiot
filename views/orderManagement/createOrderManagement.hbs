@@ -115,13 +115,14 @@
                 </tr>
             </table>
         </div>
-        <form action="/postCreateOrderManagement" method="post">
+        <form action="/postCreateOrderManagement" method="post" onsubmit="return checkAfterSubmit()">
             <input value="124" type="text" id="inputResMaKhachHang" name="MaKhachHang" hidden>
             <input type="text" id="inputResTenKhachHang" name="TenKhachHang" hidden>
             <input type="text" id="inputResDanhSachSanPham" name="DanhSachSanPham" hidden>
             <input type="text" id="inputResCongNo" name="CongNo" hidden>
             <input type="text" id="inputResGhiChu" name="GhiChu" hidden>
             <input type="text" id="inputResKiemTraSoLuongVan" name="KiemTraSoLuongVan" hidden>
+            <input type="text" id="inputResKiemTraSoLuongMatPhu" name="KiemTraSoLuongMatPhu" hidden>
             <input class="btn-submit" id="submit-create-order" type="submit" value="Tạo đơn hàng">
         </form>
     </fieldset>
@@ -181,7 +182,6 @@
         };
     }
 
-    console.log(checkSubmitPlanks);
     $(function () {
         $("#tags-code-plank").autocomplete({
             source: autocompletePlanks
@@ -215,12 +215,15 @@
     // autocomplete surface 
     let autocompleteSurface = [];
     let compareCoveredSurface = [];
+    let checkSubmitCoverSurface = [];
     for (let i = 0; i < coveredSurface.length; i++) {
         let codeColor = coveredSurface[i].MaMau;
         let maxNumberSurface = coveredSurface[i].SoLuong;
         compareCoveredSurface[codeColor] = { "maxNumberSurface": maxNumberSurface };
         autocompleteSurface.push(codeColor);
+        checkSubmitCoverSurface[codeColor]={"MaMau":codeColor,"SoLuong":maxNumberSurface};
     }
+
     $(function () {
         $("#tags-code-surface-min").autocomplete({
             source: autocompleteSurface
@@ -284,8 +287,6 @@
 
     function addNote() {
         let result = "";
-        console.log("Vao add Note");
-        console.log(selectCoveredSurface.value);
         switch (selectCoveredSurface.value) {
             case "Min":
                 result = checkAndNote(tagsNumberPlank.value, maxNumberPlank.value, tagNumberFaceMin.value, inputMaxNumberCoveredSurfaceMin.value);
@@ -534,23 +535,35 @@
     let inputResGhiChu = document.getElementById("inputResGhiChu");
 
     let inputResKiemTraSoLuongVan = document.getElementById("inputResKiemTraSoLuongVan");
+    let inputResKiemTraSoLuongMatPhu = document.getElementById("inputResKiemTraSoLuongMatPhu") 
 
     let submitCreateOrder = document.getElementById("submit-create-order");
 
     submitCreateOrder.addEventListener("click", () => {
         let submitPlanks = [];
+        let submitCoverSurface=[];
         inputResMaKhachHang.value = tagsCodeCustomer.value;
         inputResTenKhachHang.value = tabsNameCustomer.value;
         inputResCongNo.value = tabsDebt.value;
         inputResDanhSachSanPham.value = JSON.stringify(arrayPlanks);
 
         for (let i = 0; i < arrayPlanks.length; i++) {
-            let index = arrayPlanks[i].LoaiVanDoDayMatPhuSoMat.split(" ")[0];
-            submitPlanks.push(checkSubmitPlanks[index]);
+            let index = arrayPlanks[i].LoaiVanDoDayMatPhuSoMat.split(" ");
+            submitPlanks.push(checkSubmitPlanks[index[0]]);
+            if(index[2]=="Min")
+            submitCoverSurface.push(checkSubmitCoverSurface[index[3]]);
         }
+        inputResKiemTraSoLuongMatPhu.value = JSON.stringify([...new Set(submitCoverSurface)]);
         inputResKiemTraSoLuongVan.value = JSON.stringify([...new Set(submitPlanks)]);
         inputResGhiChu.value = GhiChu.join(", ");
-        console.log(inputResGhiChu.value);
 
     })
+
+    function checkAfterSubmit() {
+        if (tagsCodeCustomer.value == "") {
+            alert("Vui lòng nhập mã khách hàng");
+            return false;
+        }
+        else return true;
+    }
 </script>
