@@ -1,0 +1,59 @@
+.pagination > li > a {
+    color: black;
+    text-decoration: none;
+  }
+.pagination{
+  display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+    width: fit-content;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.pagination li{
+       width: 20px;
+       background: white;
+       padding: 5px;
+       border: 1px solid black;
+       margin: 1px;
+       color: white;
+}
+.pagination .active {
+    background: green;
+
+}
+
+.pagination .active a {
+    color: white;
+}
+/* css table-list for all page */
+.table-list
+{
+  border-collapse:collapse ;
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 2%;
+}
+.table-list td, table th {
+  border:  1px solid #ddd;
+  padding: 0px 0px;
+  text-align: center;
+  height: 30px;
+}
+
+.table-list tr:hover {background-color: #ddd;}
+
+.table-list th{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+}
+/* css title-page for all page */
+.title-page{
+  margin: 0px 5%;
+}

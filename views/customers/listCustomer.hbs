@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="/stylesheets/listCustomer.css">
 <div>
-
-
-    <table id="customers">
+    <h3 class="title-page">DANH SÁCH KHÁCH HÀNG</h3>
+    <table class="table-list">
         <tr>
+            <th>STT</th>
             <th>Mã khách hàng</th>
             <th>Tên khách hàng</th>
             <th>Email</th>
@@ -15,6 +15,7 @@
         </tr>
         {{#each customers}}
         <tr>
+            <td>{{inc @index}}</td>
             <td>{{this.MaKhachHang}}</td>
             <td>{{this.TenKhachHang}}</td>
             <td>{{this.Email}}</td>

@@ -1,19 +1,24 @@
-<link rel="stylesheet" href="/stylesheets/listWarehousePlank.css">
-<table id="customers">
-    <tr>
-        <th>Mã nhập</th>
-        <th>Ngày nhập</th>
-        <th>Mã màu</th>
-        <th>Loại mặt phủ</th>
-        <th>Số lượng</th>
-    </tr>
-    {{#each coverSurfaces}}
-    <tr>
-        <td>{{this.MaNhap}}</td>
-        <td>{{this.NgayNhap}}</td>
-        <td>{{this.MaMau}}</td>
-        <td>{{this.LoaiMatPhu}}</td>
-        <td>{{this.SoLuong}}</td>
-    </tr>
-    {{/each}}
-</table>
+<div class="list-import-cover-surface">
+    <h3 class="title-page">DANH SÁCH NHẬP MĂT PHỦ</h3>
+    <table class="table-list">
+        <tr>
+            <th>STT</th>
+            <th>Mã nhập</th>
+            <th>Ngày nhập</th>
+            <th>Mã màu</th>
+            <th>Loại mặt phủ</th>
+            <th>Số lượng</th>
+        </tr>
+        {{#each coverSurfaces}}
+        <tr>
+            <td>{{inc @index}}</td>
+            <td>{{this.MaNhap}}</td>
+            <td>{{this.NgayNhap}}</td>
+            <td>{{this.MaMau}}</td>
+            <td>{{this.LoaiMatPhu}}</td>
+            <td>{{this.SoLuong}}</td>
+        </tr>
+        {{/each}}
+    </table>
+    <hd-paging current-page="{{page}}" max-page="{{maxPage}}" for="listImportCoverSurface"></hd-paging>
+</div>

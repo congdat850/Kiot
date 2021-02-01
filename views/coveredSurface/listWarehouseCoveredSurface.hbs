@@ -1,15 +1,20 @@
-<link rel="stylesheet" href="/stylesheets/listWarehousePlank.css">
-<table id="customers">
-    <tr>
-        <th>Loại mặt phủ</th>
-        <th>Mã màu</th>
-        <th>Số lượng</th>
-    </tr>
-    {{#each coveredSurface}}
-    <tr>
-        <td>{{this.LoaiMatPhu}}</td>
-        <td>{{this.MaMau}}</td>
-        <td>{{this.SoLuong}}</td>
-    </tr>
-    {{/each}}
-</table>
+<div class="list-warehouse-cover-surface">
+    <h3 class="title-page">DANH SÁCH MẶT PHỦ</h3>
+    <table class="table-list">
+        <tr>
+            <th>STT</th>
+            <th>Loại mặt phủ</th>
+            <th>Mã màu</th>
+            <th>Số lượng</th>
+        </tr>
+        {{#each coveredSurface}}
+        <tr>
+            <td>{{inc @index}}</td>
+            <td>{{this.LoaiMatPhu}}</td>
+            <td>{{this.MaMau}}</td>
+            <td>{{this.SoLuong}}</td>
+        </tr>
+        {{/each}}
+    </table>
+    <hd-paging current-page="{{page}}" max-page="{{maxPage}}" for="coveredSurface"></hd-paging>
+</div>

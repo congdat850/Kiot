@@ -21,7 +21,8 @@
         <form action="/postFilterOder" method="post">
             <label for="">Lọc theo tiến trình: </label>
             <select name="filterProcess" id="select-filter">
-                <option selected value="TatCa">Tất cả</option>
+                <option selected value="{{this.filterProcess}}">{{this.filterProcess}}</option>
+                <option value="TatCa">Tất cả</option>
                 <option value="SanXuat">Sản xuất</option>
                 <option value="ThieuHang">Thiếu hàng</option>
                 <option value="DaGiao">Đã giao</option>
@@ -31,15 +32,16 @@
             <br>
             <br>
             <label for="birthday">Từ ngày:</label>
-            <input type="date" id="from-date" name="fromDate">
+            <input value="{{this.fromDate}}" type="date" id="from-date" name="fromDate">
             <label for="birthday">Đến ngày:</label>
-            <input type="date" id="to-date" name="toDate">
+            <input value="{{this.toDate}}" type="date" id="to-date" name="toDate">
             <button id="btn-filter" type="submit">Lọc</button>
+            <button type="reset" onclick="reloadPage()">Bỏ lọc</button>
         </form>
     </div>
 </div>
 
-<table id="customers">
+<table class="table-list">
     <tr>
         <th>STT</th>
         <th>Mã đơn hàng</th>
@@ -115,14 +117,13 @@
     {{/each}}
 </table>
 
-{{!-- <form id="form-for-search" action="/postSearchOrder" method="post">
-    <input name="contentSearch" type="text">
-    <input name="typeSearch" type="text">
-    <input name="typeSort" type="text">
-    <button type="submit">submit</button>
-</form> --}}
+<hd-paging current-page="{{page}}" max-page="{{maxPage}}"
+    for="orderManagement?filterProcess={{this.filterProcess}}&fromDate={{this.fromDate}}&toDate={{this.toDate}}">
+</hd-paging>
+
 
 <script>
+    let congdat = "123";
     let seenDetail = document.getElementsByClassName("seen-detail");
     let close = document.getElementsByClassName("close");
     let detail = document.getElementsByClassName("detail");
@@ -133,8 +134,6 @@
     let selectFilter = document.getElementById("select-filter");
     let btnFilter = document.getElementById("btn-filter");
     let indexDetail;
-
-
 
     for (let i = 0; i < seenDetail.length; i++) {
         seenDetail[i].addEventListener("click", (ele) => {
@@ -153,9 +152,6 @@
             let process = changeSelect[i].value;
             if (confirm("Bạn có muốn thay đổi đơn hàng có mã số " + id + " thành " + process))
                 $.ajax({
-                    /* beforeSend: (request) => {
-                         return confirm("Bạn có muốn thay đổi đơn hàng có mã số " + id + " thành " + process);
-                     },*/
                     method: "post",
                     url: "/postProcess",
                     data: { data: JSON.stringify({ "id": +id, "process": process }) }
@@ -172,27 +168,27 @@
             switch (changeSelect[i].value) {
                 case "ThieuHang":
                     changeSelect[i].parentElement.style.background = "red";
-                    changeSelect[i].getElementsByTagName("option")[0].textContent="Thiếu hàng"
+                    changeSelect[i].getElementsByTagName("option")[0].textContent = "Thiếu hàng"
                     break;
                 case "SanXuat":
                     changeSelect[i].parentElement.style.background = "yellow";
-                    changeSelect[i].getElementsByTagName("option")[0].textContent="Sản xuất"
+                    changeSelect[i].getElementsByTagName("option")[0].textContent = "Sản xuất"
                     break;
                 case "SanXuatXong":
                     changeSelect[i].parentElement.style.background = "green";
-                    changeSelect[i].getElementsByTagName("option")[0].textContent="Sản xuất xong"
+                    changeSelect[i].getElementsByTagName("option")[0].textContent = "Sản xuất xong"
                     break;
                 case "DaGiao":
                     changeSelect[i].parentElement.style.background = "blue";
                     changeSelect[i].nextElementSibling.style.display = "block";
                     changeSelect[i].style.display = "none"
-                    changeSelect[i].getElementsByTagName("option")[0].textContent="Đã giao"
+                    changeSelect[i].getElementsByTagName("option")[0].textContent = "Đã giao"
                     break;
                 case "HuyDon":
                     changeSelect[i].parentElement.style.background = "gray";
                     changeSelect[i].nextElementSibling.style.display = "block";
                     changeSelect[i].style.display = "none"
-                    changeSelect[i].getElementsByTagName("option")[0].textContent="Hủy đơn"
+                    changeSelect[i].getElementsByTagName("option")[0].textContent = "Hủy đơn"
                     break;
             }
         }
@@ -201,6 +197,7 @@
     function filterDate() {
         let inputFromDate = document.getElementById("from-date").value;
         let inputToDate = document.getElementById("to-date").value;
+
         if (fromDate.value && toDate.value) {
             console.log(fromDate.value + "và " + toDate.value);
             let fromDate = new Date(inputFromDate);
@@ -209,5 +206,9 @@
         else {
             console.log("thêm dữ liệu")
         }
+    }
+
+    function reloadPage() {
+        window.location.href = window.location.pathname;
     }
 </script>
