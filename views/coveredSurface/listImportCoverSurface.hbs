@@ -1,5 +1,8 @@
 <div class="list-import-cover-surface">
     <h3 class="title-page">DANH SÁCH NHẬP MĂT PHỦ</h3>
+    <div class="search-component">
+        <cd-search for="listImportCoverSurface" categorys={{this.categorys}}></cd-search>
+    </div>
     <table class="table-list">
         <tr>
             <th>STT</th>
@@ -20,5 +23,5 @@
         </tr>
         {{/each}}
     </table>
-    <hd-paging current-page="{{page}}" max-page="{{maxPage}}" for="listImportCoverSurface"></hd-paging>
+    <hd-paging current-page="{{page}}" max-page="{{maxPage}}"></hd-paging>
 </div>

@@ -35,17 +35,17 @@ function getEmployeeCode(userName)
     }
 
 class User {
-    async GetListUser(req, res) {
-        let result = await model.GetListUser();
+    async getListUser(req, res) {
+        let result = await model.getListUser();
         res.render("users/listUser", { notIsLogin: true,users: result });
     }
-    async GetAddUser(req, res)
+    async getAddUser(req, res)
     {
         res.render("users/addUser",{notIsLogin:true})
     }
 
     
-    async PostAddUser(req,res)
+    async postAddUser(req,res)
     {
             let userNew = req.body;
             if(userNew)

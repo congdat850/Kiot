@@ -14,7 +14,7 @@ class Model {
     })
   }
   // user
-  async GetListUser(query) {
+  async getListUser(query) {
     let result = await dbo.collection("NhanVien").find({}).toArray();
     return result;
   }
@@ -24,12 +24,12 @@ class Model {
     return result;
   }
   // customer
-  async DeleteCustomer(query) {
+  async deleteCustomer(query) {
     let result = await dbo.collection("KhachHang").deleteOne(query);
     return result;
   }
 
-  async GetListCustomer(query) {
+  async getListCustomer(query) {
     let param = query || {};
     let result = await dbo.collection("KhachHang").find(param).toArray();
     return result;
@@ -40,7 +40,7 @@ class Model {
     return result;
   }
 
-  async UpdateCustomer(query) {
+  async updateCustomer(query) {
     let myquery = { "MaKhachHang": query.MaKhachHang };
     let newvalues = { $set: query };
     let result = await dbo.collection("KhachHang").updateOne(myquery, newvalues);
@@ -48,14 +48,14 @@ class Model {
   }
 
   // Plank management
-  async GetListWarehousePlank(page) {
-    let result = await dbo.collection("KhoVan").find({}).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
+  async getListWarehousePlank(query,page) {
+    let result = await dbo.collection("KhoVan").find(query).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
     return result;
   }
 
-  async getMaxPageListWarehousePlank()
+  async getMaxPageListWarehousePlank(query)
   {
-    let result = await dbo.collection("KhoVan").find({}).count();
+    let result = await dbo.collection("KhoVan").find(query).count();
     let maxPage = Math.ceil(result/PAGE_SIZE);
     return maxPage;
   }
@@ -74,14 +74,14 @@ class Model {
     return result;
   }
 
-  async getListImportPlanks(page) {
-    let result = await dbo.collection("NhapVan").find({}).sort({ "MaNhap": -1 }).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
+  async getListImportPlanks(query,page) {
+    let result = await dbo.collection("NhapVan").find(query).sort({ "MaNhap": -1 }).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
     return result;
   }
 
-  async getMaxPageListImportPlanks()
+  async getMaxPageListImportPlanks(query)
   {
-    let result = await dbo.collection("NhapVan").find({}).count();
+    let result = await dbo.collection("NhapVan").find(query).count();
     let maxPage = Math.ceil(result/PAGE_SIZE);
     return maxPage;
   }
@@ -92,7 +92,7 @@ class Model {
 
 
   // Order management
-  async GetListOrderManagement(query,page) {
+  async getListOrderManagement(query,page) {
     let result = await dbo.collection("LenDon").find(query).sort({ "MaLenDon": -1 }).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
     return result;
   }
@@ -104,12 +104,12 @@ class Model {
     return maxPage;
   }
 
-  async ChangeOrderProcess(query, newvalues) {
+  async changeOrderProcess(query, newvalues) {
     let result = await dbo.collection("LenDon").updateOne(query, { $set: newvalues });
     return result;
   }
 
-  async FindMultiplePlank(query) {
+  async findMultiplePlank(query) {
     let result = await dbo.collection("KhoVan").find({ $or: query }).toArray();
     return result;
   }
@@ -121,19 +121,19 @@ class Model {
     return result;
   }
 
-  async InsertNewOrder(query) {
+  async insertNewOrder(query) {
     let result = await dbo.collection("LenDon").insertOne(query)
     return result;
   }
   //Covered Surface
-  async getListWarehouseCoverSurface(page) {
-    let result = await dbo.collection("KhoMatPhu").find({}).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
+  async getListWarehouseCoverSurface(query,page) {
+    let result = await dbo.collection("KhoMatPhu").find(query).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
     return result;
   }
 
-  async getMaxPageListWarehouseCoverSurface()
+  async getMaxPageListWarehouseCoverSurface(query)
   {
-    let result = await dbo.collection("KhoMatPhu").find({}).count();
+    let result = await dbo.collection("KhoMatPhu").find(query).count();
     let maxPage = Math.ceil(result/PAGE_SIZE);
     return maxPage;
   }
@@ -150,7 +150,7 @@ class Model {
     }
   }
 
-  async FindMultipleCoverSurface(query) {
+  async findMultipleCoverSurface(query) {
     let result = await dbo.collection("KhoMatPhu").find({ $or: query }).toArray();
     return result;
   }
@@ -162,14 +162,14 @@ class Model {
     return result;
   }
 
-  async getListImportCoverSurface(page) {
-    let result = await dbo.collection("NhapMatPhu").find({}).sort({ "MaNhap": -1 }).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
+  async getListImportCoverSurface(query,page) {
+    let result = await dbo.collection("NhapMatPhu").find(query).sort({ "MaNhap": -1 }).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
     return result;
   }
 
-  async getMaxPageListImportCoverSurface()
+  async getMaxPageListImportCoverSurface(query)
   {
-    let result = await dbo.collection("NhapMatPhu").find({}).count();
+    let result = await dbo.collection("NhapMatPhu").find(query).count();
     let maxPage = Math.ceil(result/PAGE_SIZE);
     return maxPage;
   }

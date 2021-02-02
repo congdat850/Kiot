@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="/stylesheets/listCustomer.css">
 <div>
     <h3 class="title-page">DANH SÁCH KHÁCH HÀNG</h3>
+    <div class="search-component">
+        <cd-search for="orderManagement" categorys={{this.categorys}}></cd-search>
+    </div>
     <table class="table-list">
         <tr>
             <th>STT</th>
@@ -33,6 +36,7 @@
     <div class="form-edit-customer">
         <form action="/updateCustomer" method="post">
             <div class="close" onClick="closeEditCustomer()">X</div>
+            <input type="text" name="STT" id="" hidden>
             <label for="">Mã khách hành: </label><br>
             <input class="input-none-edit" type="text" name="MaKhachHang" readonly>
             <br>
@@ -80,7 +84,7 @@
         FormEditCustomer.style.display = "block";
         let ArrayInputForm = FormEditCustomer.getElementsByTagName("input");
         let ArrayInformationCustomer = element.parentElement.parentElement.getElementsByTagName("td");
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 8; i++) {
             ArrayInputForm[i].value = ArrayInformationCustomer[i].textContent;
         }
     }
@@ -88,7 +92,7 @@
     function closeEditCustomer() {
         FormEditCustomer.style.display = "none";
         let ArrayInputForm = FormEditCustomer.getElementsByTagName("input");
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 8; i++) {
             ArrayInputForm[i].value = "";
         }
     }

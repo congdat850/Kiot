@@ -5,20 +5,27 @@ function formatNameCodePlank(name) {
 }
 
 class Plank {
-    async GetListWarehousePlank(req, res) {
-        let query = req.query;
-        let page = query.page || 1;
-        let result = await model.GetListWarehousePlank(page);
-        let maxPage = await model.getMaxPageListWarehousePlank();
+    async getListWarehousePlank(req, res) {
+        let data = req.query||{};
+        let page = data.page || 1;
+        let categorys = ["MaVan","TenVan","NhaCungCap"];
+
+        data.hasOwnProperty("page")&&delete data.page;
+
+        let query = data||{};
+
+        let result = await model.getListWarehousePlank(query,page);
+        let maxPage = await model.getMaxPageListWarehousePlank(query);
 
         res.render("planks/listWarehousePlank", {
             notIsLogin: true,
             planks: result,
             page: page,
-            maxPage: maxPage
+            maxPage: maxPage,
+            categorys:categorys
         });
     }
-    async CreatePlank(req, res) {
+    async createPlank(req, res) {
         res.render("planks/createPlank", { notIsLogin: true });
     }
 
@@ -34,17 +41,24 @@ class Plank {
     }
 
     async getListImportPlanks(req, res) {
-        let query = req.query;
-        let page = query.page || 1;
+        let data = req.query||{};
+        let page = data.page || 1;
+        let categorys = ["MaNhap","MaVan","TenVan","DoDay"];
+        
+        data.hasOwnProperty("page")&&delete data.page;
+        data.hasOwnProperty("MaNhap")&& (data.MaNhap = +data.MaNhap);
 
-        let result = await model.getListImportPlanks(page);
-        let maxPage = await model.getMaxPageListImportPlanks();
+        let query = data || {};
+
+        let result = await model.getListImportPlanks(query,page);
+        let maxPage = await model.getMaxPageListImportPlanks(query);
         
         res.render("planks/listImportPlanks", {
             notIsLogin: true,
             planks: result,
             page: page,
-            maxPage: maxPage
+            maxPage: maxPage,
+            categorys:categorys
         });
     }
 

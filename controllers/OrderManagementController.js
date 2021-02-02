@@ -36,7 +36,7 @@ function FormatQueryFilter(data) {
 }
 
 class Order {
-    async GetListOrderManagement(req, res) {
+    async getListOrderManagement(req, res) {
         let data = req.query;
         let page = data.page || 1;
         let result = [];
@@ -44,18 +44,24 @@ class Order {
         let filterProcess = data.filterProcess || "TatCa";
         let fromDate = data.fromDate || "";
         let toDate = data.toDate || "";
+        let categorys = ["MaLenDon", "MaKhachHang", "TenKhachHang", "NguoiLenDon"]
 
-        if (data.contentSearch) {
-            maxPage = await model.getMaxPageListOrderManagement(FormatQuerySearch(data));
-            result = await model.GetListOrderManagement(FormatQuerySearch(data), page);
+        if (data.hasOwnProperty("MaLenDon")||data.hasOwnProperty("MaKhachHang")||data.hasOwnProperty("TenKhachHang")||data.hasOwnProperty("NguoiLenDon")) {
+            if(data.hasOwnProperty("MaLenDon"))
+            {
+                data.MaLenDon = +data.MaLenDon;
+            }
+            data.hasOwnProperty("page")&&delete data.page;
+            maxPage = await model.getMaxPageListOrderManagement(data);
+            result = await model.getListOrderManagement(data, page);
         }
         else if (data.filterProcess) {
             maxPage = await model.getMaxPageListOrderManagement(FormatQueryFilter(data));
-            result = await model.GetListOrderManagement(FormatQueryFilter(data), page);
+            result = await model.getListOrderManagement(FormatQueryFilter(data), page);
         }
         else {
             maxPage = await model.getMaxPageListOrderManagement({});
-            result = await model.GetListOrderManagement({}, page);
+            result = await model.getListOrderManagement({}, page);
         }
 
         res.render("orderManagement/listOrderManagement", {
@@ -64,29 +70,34 @@ class Order {
             maxPage: maxPage,
             filterProcess: filterProcess,
             fromDate: fromDate,
-            toDate: toDate
+            toDate: toDate,
+            categorys: categorys
         });
     }
-    async PostProcess(req, res) {
+    async postProcess(req, res) {
+        let result;
         let data = JSON.parse(req.body.data);
-        let result = await model.ChangeOrderProcess({ "MaLenDon": data.id }, { "TienDo": data.process });
+
+        if (data.beforeChangeProcess !== "DaGiao" && data.beforeChangeProcess != "HuyDon")
+            result = await model.changeOrderProcess({ "MaLenDon": data.id }, { "TienDo": data.process });
 
         res.send("success");
     }
 
     // page createOrderManagement
-    async GetCreateOrderManagement(req, res) {
-        let customers = await model.GetListCustomer();
-        let planks = await model.GetListWarehousePlank();
+    async getCreateOrderManagement(req, res) {
+        let customers = await model.getListCustomer();
+        let planks = await model.getListWarehousePlank();
         let coveredSurface = await model.getListWarehouseCoverSurface();
 
         res.render("orderManagement/createOrderManagement", { notIsLogin: true, data: JSON.stringify({ "customers": customers, "planks": planks, "coveredSurface": coveredSurface }) });
     }
 
-    async PostCreateOrderManagement(req, res) {
+    async postCreateOrderManagement(req, res) {
         const params = req.body;
-        let result;
-        let resultSurface;
+        let result=[];
+        let resultSurface=[];
+
         let resultUpdate;
         let resultUpdateSurface;
 
@@ -94,9 +105,9 @@ class Order {
         let KiemTraSoLuongMatPhu = JSON.parse(params.KiemTraSoLuongMatPhu);
 
         if (KiemTraSoLuongVan.length > 0)
-            result = await model.FindMultiplePlank(KiemTraSoLuongVan);
+            result = await model.findMultiplePlank(KiemTraSoLuongVan);
         if (KiemTraSoLuongMatPhu.length > 0)
-            resultSurface = await model.FindMultipleCoverSurface(KiemTraSoLuongMatPhu);
+            resultSurface = await model.findMultipleCoverSurface(KiemTraSoLuongMatPhu);
         if (result.length == KiemTraSoLuongVan.length && resultSurface.length == KiemTraSoLuongMatPhu.length) {
 
             let d = new Date();
@@ -113,7 +124,7 @@ class Order {
                 let arrayNameProduct = SanPhamLenDon[i].LoaiVanDoDayMatPhuSoMat.split(" ");
 
                 updatePlank.push({ "MaVan": arrayNameProduct[0], "SoLuong": result[i].SoLuong - SanPhamLenDon[i].SoLuong });
-    
+
                 if (arrayNameProduct[2] == "Min")
                     valueCoverSurface.push({ "MaMau": arrayNameProduct[3], "SoLuong": SanPhamLenDon[i].SoLuong * arrayNameProduct[5][0] });
             }
@@ -137,23 +148,23 @@ class Order {
                 "ChiTietDon": SanPhamLenDon
             }
 
-            result = await model.InsertNewOrder(newOrder);
+            result = await model.insertNewOrder(newOrder);
             res.redirect("/orderManagement");
         }
         else res.redirect('/createOrderManagement');
     }
-    async PostSearchOrder(req, res) {
+    async postSearchOrder(req, res) {
         const data = req.body;
 
         if (data.contentSearch) res.redirect("/orderManagement?contentSearch=" + data.contentSearch + "&typeSearch=" + data.typeSearch);
         else res.redirect("/orderManagement");
     }
 
-    async PostFilterOder(req, res) {
+    async postFilterOder(req, res) {
         const data = req.body;
 
-        if (data.filterProcess) 
-        res.redirect("/orderManagement?filterProcess=" + data.filterProcess + "&fromDate=" + data.fromDate + "&toDate=" + data.toDate);
+        if (data.filterProcess)
+            res.redirect("/orderManagement?filterProcess=" + data.filterProcess + "&fromDate=" + data.fromDate + "&toDate=" + data.toDate);
         else res.redirect("/orderManagement");
     }
 }

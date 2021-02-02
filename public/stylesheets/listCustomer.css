@@ -34,15 +34,15 @@
     border: 1px solid;
     display: none;
 }
-input{
+.form-edit-customer input{
     width: 60%;
     font-size: 15px;
 }
-select{
+.form-edit-customer select{
     width: 60%;
     font-size: 15px;
 }
-.btn-submit{
+.form-edit-customer .btn-submit{
     background-color: #13aa52;
     height: 34px;
     border: none;
@@ -51,7 +51,7 @@ select{
 
 }
 
-.close{
+.form-edit-customer .close{
     position: absolute;
     top: 10px;
     right: 10px;
@@ -60,7 +60,7 @@ select{
     padding: 3px;
 }
 
-.input-none-edit {
+.form-edit-customer .input-none-edit {
     background: #e4dedc;
     border: none;
 }

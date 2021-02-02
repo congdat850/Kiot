@@ -1,17 +1,24 @@
 const model = require("../model/model");
+
 class CoveredSurface {
     async getListWarehouseCoverSurface(req, res) {
-        let query = req.query;
-        let page = query.page || 1;
+        let data = req.query;
+        let page = data.page || 1;
+        let categorys= ["MaMau","LoaiMatPhu"];
 
-        let maxPage = await model.getMaxPageListWarehouseCoverSurface();
-        let result = await model.getListWarehouseCoverSurface(page);
+        data.hasOwnProperty("page")&& delete data.page;
+
+        let query = data||{};
+
+        let maxPage = await model.getMaxPageListWarehouseCoverSurface(query);
+        let result = await model.getListWarehouseCoverSurface(query,page);
 
         res.render("coveredSurface/listWarehouseCoveredSurface", {
             notIsLogin: true,
             coveredSurface: result,
             page: page,
-            maxPage: maxPage
+            maxPage: maxPage,
+            categorys:categorys
         });
     }
 
@@ -36,17 +43,23 @@ class CoveredSurface {
     }
 
     async getListImportCoverSurface(req, res) {
-        let query = req.query;
-        let page = query.page || 1;
+        let data = req.query;
+        let page = data.page || 1;
+        let categorys = ["MaNhap","MaMau","Film","LoaiMatPhu"];
+
+        data.hasOwnProperty("page")&&delete data.page;
         
-        let maxPage = await model.getMaxPageListImportCoverSurface();
-        let result = await model.getListImportCoverSurface(page);
+        let query = data || {};
+        
+        let maxPage = await model.getMaxPageListImportCoverSurface(query);
+        let result = await model.getListImportCoverSurface(query,page);
 
         res.render("coveredSurface/listImportCoverSurface", {
             notIsLogin: true,
             coverSurfaces: result,
             maxPage: maxPage,
-            page: page
+            page: page,
+            categorys:categorys
         });
     }
 }

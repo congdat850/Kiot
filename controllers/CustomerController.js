@@ -29,8 +29,8 @@ function xoa_dau(str) {
 }
 
 class Customer {
-    async GetListCustomer(req, res) {
-        let result = await model.GetListCustomer();
+    async getListCustomer(req, res) {
+        let result = await model.getListCustomer();
         res.render("customers/listCustomer", { notIsLogin: true, customers: result });
     }
 
@@ -48,7 +48,7 @@ class Customer {
         do
         {
             nameCodeCustomerNew= stt==0?nameCodeCustomer:nameCodeCustomer+stt;
-            checkExistCustomer = await model.GetListCustomer({ "MaKhachHang": nameCodeCustomerNew });
+            checkExistCustomer = await model.getListCustomer({ "MaKhachHang": nameCodeCustomerNew });
             stt++;
             console.log(nameCodeCustomerNew);
         }
@@ -62,15 +62,19 @@ class Customer {
     async postDeleteCustomer(req,res)
     {
         let result;
+        let params = req.params;
+        let idCustomer = params.id||"";
+
         if(req.params.id)
-        result = await model.DeleteCustomer({"MaKhachHang":req.params.id});
-        console.log("delete duoc roi");
+        result = await model.deleteCustomer({"MaKhachHang":idCustomer});
+
         res.send("Success");
     }
     async postUpdateCustomer(req,res)
     {
         let param = req.body;
-        let result= await model.UpdateCustomer(param);
+        let result= await model.updateCustomer(param);
+
         res.redirect("/customer");
     }
 }

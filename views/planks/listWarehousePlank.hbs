@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="/stylesheets/listWarehousePlank.css">
 <div class="list-warehouse-plank">
     <h3 class="title-page">DANH SÁCH VÁN</h3>
+     <div class="search-component">
+         <cd-search for="warehousePlank" categorys={{this.categorys}}></cd-search>
+    </div>
     <table class="table-list">
         <tr>
             <th>STT</th>
@@ -25,5 +28,5 @@
         </tr>
         {{/each}}
     </table>
-    <hd-paging current-page="{{page}}" max-page="{{maxPage}}" for="warehousePlank"></hd-paging>
+    <hd-paging current-page="{{page}}" max-page="{{maxPage}}"></hd-paging>
 </div>

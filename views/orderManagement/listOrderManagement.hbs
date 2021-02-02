@@ -1,19 +1,9 @@
 <link rel="stylesheet" href="/stylesheets/listOrderManagement.css">
-
+ 
 <div class="tool">
     <div class="search">
-        <form action="/postSearchOrder" method="post">
-            <label for="">Tìm kiếm:</label> <input type="text" value="" name="contentSearch" id="input-search">
-            <label for="">Thể loại</label>
-            <select id="select-search" name="typeSearch">
-                <option value="MaLenDon" selected="selected"> Mã đơn hàng</option>
-                <option value="MaKhachHang">Mã khách hàng</option>
-                <option value="TenKhachHang">Tên khách hàng</option>
-                <option value="NguoiLenDon">Người lên đơn</option>
-            </select>
-            {{!-- <input id="typeFilter" type="text" name="typeFilter" hidden> --}}
-            <button id="btn-search" type="submit">Tìm kiếm</button>
-        </form>
+        <cd-search for="orderManagement" categorys={{this.categorys}}></cd-search>
+        <br>
         <br>
         <br>
     </div>
@@ -61,7 +51,9 @@
         <td>{{this.NguoiLenDon}}</td>
         <td>{{this.NgayLenDon}}</td>
         <td> <button for={{@index}} class="seen-detail">xem chi tiết</button></button></td>
-        <td><select class="process">
+        <td>
+            <input id="before-change-process" type="text" value="{{this.TienDo}}" hidden>
+            <select class="process">
                 <option value="{{this.TienDo}}" selected="selected"> {{this.TienDo}}</option>
                 <option value="ThieuHang">Thiếu hàng</option>
                 <option value="SanXuat">Sản xuất</option>
@@ -117,10 +109,7 @@
     {{/each}}
 </table>
 
-<hd-paging current-page="{{page}}" max-page="{{maxPage}}"
-    for="orderManagement?filterProcess={{this.filterProcess}}&fromDate={{this.fromDate}}&toDate={{this.toDate}}">
-</hd-paging>
-
+<hd-paging current-page="{{page}}" max-page="{{maxPage}}"></hd-paging>
 
 <script>
     let congdat = "123";
@@ -150,11 +139,18 @@
         changeSelect[i].addEventListener("change", () => {
             let id = changeSelect[i].parentElement.parentElement.children[1].textContent;
             let process = changeSelect[i].value;
+            let beforeChangeProcess = changeSelect[i].parentElement.getElementsByTagName("input")[0].value;
             if (confirm("Bạn có muốn thay đổi đơn hàng có mã số " + id + " thành " + process))
                 $.ajax({
                     method: "post",
                     url: "/postProcess",
-                    data: { data: JSON.stringify({ "id": +id, "process": process }) }
+                    data: {
+                        data: JSON.stringify({
+                            id: +id,
+                            process: process,
+                            beforeChangeProcess: beforeChangeProcess
+                        })
+                    }
                     , success: (r) => {
                         console.log(r);
                         location.reload();

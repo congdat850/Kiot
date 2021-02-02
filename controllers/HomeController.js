@@ -3,7 +3,7 @@ const model = require("../model/model");
 
 
 class Home {
-    async GetHome(req,res)
+    async getHome(req,res)
     {
         res.render("home/home",{ notIsLogin: true,})
     }
