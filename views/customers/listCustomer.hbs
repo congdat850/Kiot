@@ -2,7 +2,7 @@
 <div>
     <h3 class="title-page">DANH SÁCH KHÁCH HÀNG</h3>
     <div class="search-component">
-        <cd-search for="orderManagement" categorys={{this.categorys}}></cd-search>
+        <cd-search for="customer" categorys={{this.categorys}}></cd-search>
     </div>
     <table class="table-list">
         <tr>
@@ -32,7 +32,7 @@
         </tr>
         {{/each}}
     </table>
-
+    <hd-paging current-page="{{page}}" max-page="{{maxPage}}"></hd-paging>
     <div class="form-edit-customer">
         <form action="/updateCustomer" method="post">
             <div class="close" onClick="closeEditCustomer()">X</div>
@@ -61,7 +61,6 @@
             <input class="btn-submit" type="submit" value="Chỉnh sửa khách hàng">
         </form>
     </div>
-
 </div>
 <script>
     let FormEditCustomer = document.getElementsByClassName("form-edit-customer")[0];

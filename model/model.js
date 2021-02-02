@@ -14,9 +14,16 @@ class Model {
     })
   }
   // user
-  async getListUser(query) {
-    let result = await dbo.collection("NhanVien").find({}).toArray();
+  async getListUser(query,page) {
+    let result = await dbo.collection("NhanVien").find(query).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
     return result;
+  }
+
+  async getMaxPageListUser(query)
+  {
+    let result = await dbo.collection("NhanVien").find(query).count();
+    let maxPage = Math.ceil(result/PAGE_SIZE);
+    return maxPage;
   }
 
   async insertUser(query) {
@@ -29,10 +36,16 @@ class Model {
     return result;
   }
 
-  async getListCustomer(query) {
-    let param = query || {};
-    let result = await dbo.collection("KhachHang").find(param).toArray();
+  async getListCustomer(query,page) {
+    let result = await dbo.collection("KhachHang").find(query).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
     return result;
+  }
+
+  async getMaxPageListCustomer(query)
+  {
+    let result = await dbo.collection("KhachHang").find(query).count();
+    let maxPage=  Math.ceil(result/PAGE_SIZE);
+    return maxPage;
   }
 
   async insertCustomer(query) {

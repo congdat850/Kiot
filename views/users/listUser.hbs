@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="/stylesheets/listUser.css">
 <div class="list-user">
     <h3 class="title-page">DANH SÁCH NHÂN VIÊN</h3>
+    <div class="search-component">
+        <cd-search for="user" categorys={{this.categorys}}></cd-search>
+    </div>
     <table class="table-list">
         <tr>
             <th>Mã nhân viên</th>
@@ -23,4 +26,5 @@
         </tr>
         {{/each}}
     </table>
+    <hd-paging current-page="{{page}}" max-page="{{maxPage}}"></hd-paging>
 </div>

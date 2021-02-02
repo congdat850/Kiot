@@ -30,8 +30,22 @@ function xoa_dau(str) {
 
 class Customer {
     async getListCustomer(req, res) {
-        let result = await model.getListCustomer();
-        res.render("customers/listCustomer", { notIsLogin: true, customers: result });
+        let data = req.query;
+        let page = data.page || 1;
+        let categorys = ["MaKhachHang","TenKhachHang","DiaChi","Sdt","Email"];
+        data.hasOwnProperty("page")&&delete data.page;
+        let query = data || {};
+
+        let maxPage = await model.getMaxPageListCustomer(query);
+        let result = await model.getListCustomer(query,page);
+
+        res.render("customers/listCustomer", {
+            notIsLogin: true,
+            customers: result,
+            page: page,
+            maxPage: maxPage,
+            categorys:categorys
+        });
     }
 
     async getAddCustomer(req, res) {
@@ -41,39 +55,36 @@ class Customer {
         const customer = req.body;
         const nameCodeCustomer = getNameCode(customer.TenKhachHang);
         let checkExistCustomer = [];
-        let nameCodeCustomerNew="";
-        let stt=0;
-        let customerNew={};
+        let nameCodeCustomerNew = "";
+        let stt = 0;
+        let customerNew = {};
         let result;
-        do
-        {
-            nameCodeCustomerNew= stt==0?nameCodeCustomer:nameCodeCustomer+stt;
+        do {
+            nameCodeCustomerNew = stt == 0 ? nameCodeCustomer : nameCodeCustomer + stt;
             checkExistCustomer = await model.getListCustomer({ "MaKhachHang": nameCodeCustomerNew });
             stt++;
             console.log(nameCodeCustomerNew);
         }
-        while(checkExistCustomer[0])
-        customerNew = {"MaKhachHang":nameCodeCustomerNew,...customer};
+        while (checkExistCustomer[0])
+        customerNew = { "MaKhachHang": nameCodeCustomerNew, ...customer };
         console.log(customerNew);
-        result= await model.insertCustomer(customerNew);
+        result = await model.insertCustomer(customerNew);
         res.redirect("/customer");
     }
 
-    async postDeleteCustomer(req,res)
-    {
+    async postDeleteCustomer(req, res) {
         let result;
         let params = req.params;
-        let idCustomer = params.id||"";
+        let idCustomer = params.id || "";
 
-        if(req.params.id)
-        result = await model.deleteCustomer({"MaKhachHang":idCustomer});
+        if (req.params.id)
+            result = await model.deleteCustomer({ "MaKhachHang": idCustomer });
 
         res.send("Success");
     }
-    async postUpdateCustomer(req,res)
-    {
+    async postUpdateCustomer(req, res) {
         let param = req.body;
-        let result= await model.updateCustomer(param);
+        let result = await model.updateCustomer(param);
 
         res.redirect("/customer");
     }
