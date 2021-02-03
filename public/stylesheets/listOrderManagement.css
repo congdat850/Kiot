@@ -1,6 +1,3 @@
-.table-list{
-    margin-top: 2%;
-}
 .detail{
     position: fixed;
     width: 90vw;
@@ -8,8 +5,7 @@
     display: none;
     background: white;
     left: 4vw;
-    border: 3px black solid;
-    font-size: 17px;
+    border: 3px #e8e8e8 solid;
     top: 10vh;
 }
 
@@ -21,12 +17,12 @@
 .table{
     width: 90%;
     margin: auto;
-    height: 50%;
+    height: 60%;
     background: white;
     display: block;
     left: 10vw;
     overflow: scroll;
-    border: 1px #ccc solid;
+    border: 1px #e8e8e8 solid;
 }
 .item{
     white-space: nowrap;
@@ -37,32 +33,23 @@
     margin-top: 10px;
 }
 
-.close {
-    width: auto;
-    height: auto;
-    font-size: 20px;
-    color: red;
-    position: absolute;
-    right: 5px;
-    top: 5px;
-}
 
 div.content {
     display: table;
     width: 99.8%;
-    border: 0.5px solid black;
+    border: 0.5px solid #e8e8e8;
     text-align: center;
 }
 
 div.content header, div.content main section {
     display: table-row;
-    border: 0.5px solid black;
+    border: 0.5px solid #e8e8e8;
 }
 
 span.title,span.avail,span.list {
     display: table-cell;
     width: auto;
-    border: 0.5px solid black;
+    border: 0.5px solid #e8e8e8;
 }
 
 main { display: table-row-group }
@@ -93,7 +80,8 @@ span.title-information{
 
 .tool{
     width: 90%;
-    margin-left:5% ;
+    margin-left:5%;
+    display: flex;
 }
 
 .search{
@@ -104,7 +92,8 @@ span.title-information{
 }
 .filter{
     width: 48.5%;
-    padding: 5px;
-    border: solid 1px black;
+    padding: 5px 20px;
     display: inline-block;
+    background: white;
+    border-radius: 5px;
 }

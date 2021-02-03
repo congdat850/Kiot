@@ -1,0 +1,18 @@
+/* css class search for componet search */
+.search-component {
+    margin: 15px 5% 0px 5%;
+    padding: 5px 0px;
+    width: fit-content;
+    border-radius: 5px;
+  }
+
+  .search-component button a{
+    text-decoration: none
+  }
+  .search-component select {
+      height: 34px;
+  }
+
+  .search-component button {
+    height: 31px;
+}

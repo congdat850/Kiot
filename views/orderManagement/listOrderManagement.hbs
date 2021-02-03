@@ -1,12 +1,6 @@
 <link rel="stylesheet" href="/stylesheets/listOrderManagement.css">
- 
+
 <div class="tool">
-    <div class="search">
-        <cd-search for="orderManagement" categorys={{this.categorys}}></cd-search>
-        <br>
-        <br>
-        <br>
-    </div>
     <div class="filter">
         <form action="/postFilterOder" method="post">
             <label for="">Lọc theo tiến trình: </label>
@@ -25,10 +19,14 @@
             <input value="{{this.fromDate}}" type="date" id="from-date" name="fromDate">
             <label for="birthday">Đến ngày:</label>
             <input value="{{this.toDate}}" type="date" id="to-date" name="toDate">
-            <button id="btn-filter" type="submit">Lọc</button>
+            <button class="success" id="btn-filter" type="submit">Lọc</button>
             <button type="reset" onclick="reloadPage()">Bỏ lọc</button>
         </form>
     </div>
+    <div class="search-component">
+        <cd-search for="orderManagement" categorys={{this.categorys}}></cd-search>
+    </div>
+
 </div>
 
 <table class="table-list">
@@ -50,7 +48,7 @@
         <td>{{this.TenKhachHang}}</td>
         <td>{{this.NguoiLenDon}}</td>
         <td>{{this.NgayLenDon}}</td>
-        <td> <button for={{@index}} class="seen-detail">xem chi tiết</button></button></td>
+        <td> <button for={{@index}} class="seen-detail info">xem chi tiết</button></button></td>
         <td>
             <input id="before-change-process" type="text" value="{{this.TienDo}}" hidden>
             <select class="process">
@@ -163,28 +161,34 @@
         for (let i = 0; i < changeSelect.length; i++) {
             switch (changeSelect[i].value) {
                 case "ThieuHang":
-                    changeSelect[i].parentElement.style.background = "red";
+                    changeSelect[i].classList.add("danger");
                     changeSelect[i].getElementsByTagName("option")[0].textContent = "Thiếu hàng"
                     break;
                 case "SanXuat":
-                    changeSelect[i].parentElement.style.background = "yellow";
+                    changeSelect[i].classList.add("warning")
                     changeSelect[i].getElementsByTagName("option")[0].textContent = "Sản xuất"
                     break;
                 case "SanXuatXong":
-                    changeSelect[i].parentElement.style.background = "green";
+                    changeSelect[i].classList.add("primary");
                     changeSelect[i].getElementsByTagName("option")[0].textContent = "Sản xuất xong"
                     break;
                 case "DaGiao":
-                    changeSelect[i].parentElement.style.background = "blue";
-                    changeSelect[i].nextElementSibling.style.display = "block";
-                    changeSelect[i].style.display = "none"
-                    changeSelect[i].getElementsByTagName("option")[0].textContent = "Đã giao"
+                    changeSelect[i].classList.add("secondary");
+                    changeSelect[i].getElementsByTagName("option")[0].textContent = "Đã giao";
+
+                    let children = changeSelect[i].children;
+                    for (let i = 0; i < children.length; i++) {
+                        children[i].style.display = "none";
+                    }
                     break;
                 case "HuyDon":
-                    changeSelect[i].parentElement.style.background = "gray";
-                    changeSelect[i].nextElementSibling.style.display = "block";
-                    changeSelect[i].style.display = "none"
+                    changeSelect[i].classList.add("dark");
                     changeSelect[i].getElementsByTagName("option")[0].textContent = "Hủy đơn"
+
+                    let children2 = changeSelect[i].children;
+                    for (let i = 0; i < children2.length; i++) {
+                        children2[i].style.display = "none";
+                    }
                     break;
             }
         }

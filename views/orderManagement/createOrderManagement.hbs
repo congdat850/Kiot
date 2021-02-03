@@ -1,8 +1,9 @@
 <link rel="stylesheet" href="./stylesheets/createOrderManagement.css">
-<div class="form-add-order">
 
-    <fieldset>
-        <legend>TẠO ĐƠN HÀNG</legend>
+<div class="form-add-order">
+    <h3 class="title-page">TẠO ĐƠN HÀNG</h3>
+    <div class="create-order-management">
+
         <div class="customer">
             <label for="">Mã khách hàng: </label>
             <input type="text" name="" id="tags-code-customer">
@@ -97,8 +98,8 @@
                 <label for="">Mặt phủ khác: </label>
                 <input type="text" id="tags-covered-surface-other">
             </div>
-            <input class="btn-submit" type="submit" id="tags-add-planks" value="Thêm ván">
-            <input class="btn-submit" type="submit" id="tags-update-plank" value="Cập nhật ván">
+            <input class="btn-submit success" type="submit" id="tags-add-planks" value="Thêm ván">
+            <input class="btn-submit secondary" type="submit" id="tags-update-plank" value="Cập nhật ván">
         </div>
         <div class="line">
             ________________________________________________________________________________________________</div>
@@ -123,9 +124,9 @@
             <input type="text" id="inputResGhiChu" name="GhiChu" hidden>
             <input type="text" id="inputResKiemTraSoLuongVan" name="KiemTraSoLuongVan" hidden>
             <input type="text" id="inputResKiemTraSoLuongMatPhu" name="KiemTraSoLuongMatPhu" hidden>
-            <input class="btn-submit" id="submit-create-order" type="submit" value="Tạo đơn hàng">
+            <input class="btn-submit primary" id="submit-create-order" type="submit" value="Tạo đơn hàng">
         </form>
-    </fieldset>
+    </div>
     <input type="text" value="{{data}}" id="my-name" hidden>
 </div>
 <script>
@@ -155,12 +156,16 @@
     let tagsCodeCustomer = document.getElementById("tags-code-customer");
     let tabsNameCustomer = document.getElementById("tags-name-customer");
     let tabsDebt = document.getElementById("debt");
-
     tagsCodeCustomer.addEventListener("focusout", () => {
         if (compareCustomers[tagsCodeCustomer.value]) {
             tabsDebt.value = compareCustomers[tagsCodeCustomer.value].debt || "0";
             tabsNameCustomer.value = compareCustomers[tagsCodeCustomer.value].nameCustomer || "";
         }
+        else {
+            tabsDebt.value =  "";
+            tabsNameCustomer.value = "";
+        }
+
     })
     // ====== autocomplete plank
     let autocompletePlanks = [];
@@ -221,7 +226,7 @@
         let maxNumberSurface = coveredSurface[i].SoLuong;
         compareCoveredSurface[codeColor] = { "maxNumberSurface": maxNumberSurface };
         autocompleteSurface.push(codeColor);
-        checkSubmitCoverSurface[codeColor]={"MaMau":codeColor,"SoLuong":maxNumberSurface};
+        checkSubmitCoverSurface[codeColor] = { "MaMau": codeColor, "SoLuong": maxNumberSurface };
     }
 
     $(function () {
@@ -535,13 +540,13 @@
     let inputResGhiChu = document.getElementById("inputResGhiChu");
 
     let inputResKiemTraSoLuongVan = document.getElementById("inputResKiemTraSoLuongVan");
-    let inputResKiemTraSoLuongMatPhu = document.getElementById("inputResKiemTraSoLuongMatPhu") 
+    let inputResKiemTraSoLuongMatPhu = document.getElementById("inputResKiemTraSoLuongMatPhu")
 
     let submitCreateOrder = document.getElementById("submit-create-order");
 
     submitCreateOrder.addEventListener("click", () => {
         let submitPlanks = [];
-        let submitCoverSurface=[];
+        let submitCoverSurface = [];
         inputResMaKhachHang.value = tagsCodeCustomer.value;
         inputResTenKhachHang.value = tabsNameCustomer.value;
         inputResCongNo.value = tabsDebt.value;
@@ -550,8 +555,8 @@
         for (let i = 0; i < arrayPlanks.length; i++) {
             let index = arrayPlanks[i].LoaiVanDoDayMatPhuSoMat.split(" ");
             submitPlanks.push(checkSubmitPlanks[index[0]]);
-            if(index[2]=="Min")
-            submitCoverSurface.push(checkSubmitCoverSurface[index[3]]);
+            if (index[2] == "Min")
+                submitCoverSurface.push(checkSubmitCoverSurface[index[3]]);
         }
         inputResKiemTraSoLuongMatPhu.value = JSON.stringify([...new Set(submitCoverSurface)]);
         inputResKiemTraSoLuongVan.value = JSON.stringify([...new Set(submitPlanks)]);

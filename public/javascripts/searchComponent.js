@@ -11,14 +11,11 @@ class searchComponent extends HTMLElement {
         this.categorys = this.getAttribute("categorys");
 
         $(this).append(`
-        <label>Tìm kiếm: </label>
-        <input type="text">
-        <label>Thể loại: </label>
+        <div class="search-new">
+        <input type="text" placeholder="Tìm kiếm">
         <select>${this.fillCategoryForSelect()}</select>
-        <button>
-            <a href="">Tìm kiếm</a>
-        </button>`);
-
+            <a href=""><button class="success">Tìm kiếm</button></a>
+        </div>`);
         this.getElementsByTagName("button")[0].addEventListener("click",this.submitSearch.bind(this));
     
     }

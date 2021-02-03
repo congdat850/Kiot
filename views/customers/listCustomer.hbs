@@ -26,40 +26,48 @@
             <td>{{this.DiaChi}}</td>
             <td>{{this.Sdt}}</td>
             <td>{{this.CongNo}}</td>
-            <td><button onclick="editCustomer(this)">Sửa</button>
-                <button id="{{this.MaKhachHang}}" onClick="deleteCustomer(this.id)">xóa</button>
+            <td><button class="warning" onclick="editCustomer(this)">Sửa</button>
+                <button class="danger" id="{{this.MaKhachHang}}" onClick="deleteCustomer(this.id)">xóa</button>
             </td>
         </tr>
         {{/each}}
     </table>
     <hd-paging current-page="{{page}}" max-page="{{maxPage}}"></hd-paging>
     <div class="form-edit-customer">
-        <form action="/updateCustomer" method="post">
-            <div class="close" onClick="closeEditCustomer()">X</div>
-            <input type="text" name="STT" id="" hidden>
-            <label for="">Mã khách hành: </label><br>
-            <input class="input-none-edit" type="text" name="MaKhachHang" readonly>
-            <br>
-            <label for="">Họ và tên khách hàng: </label><br>
-            <input class="input-none-edit" type="text" name="TenKhachHang" readonly>
-            <br>
-            <label for="">Email: </label><br>
-            <input type="text" name="Email">
-            <br>
-            <label for="">Đơn vị: </label><br>
-            <input type="text" name="DonVi">
-            <br>
-            <label for="">Địa chỉ: </label><br>
-            <input type="text" name="DiaChi">
-            <br>
-            <label for="">Số điện thoại: </label><br>
-            <input type="text" name="Sdt">
-            <br>
-            <label for="">Công nợ: </label><br>
-            <input type="text" name="CongNo">
-            <br><br>
-            <input class="btn-submit" type="submit" value="Chỉnh sửa khách hàng">
-        </form>
+        <div>
+            <form action="/updateCustomer" method="post">
+                <div onClick="closeEditCustomer()" class="close"><i class="far fa-window-close"></i></div>
+                <input type="text" name="STT" id="" hidden>
+                <label for="">Mã khách hành: </label><br>
+                <input class="input-none-edit" type="text" name="MaKhachHang" readonly>
+                <br>
+                <br>
+                <label for="">Họ và tên khách hàng: </label><br>
+                <input class="input-none-edit" type="text" name="TenKhachHang" readonly>
+                <br>
+                <br>
+                <label for="">Email: </label><br>
+                <input type="text" name="Email">
+                <br>
+                <br>
+                <label for="">Đơn vị: </label><br>
+                <input type="text" name="DonVi">
+                <br>
+                <br>
+                <label for="">Địa chỉ: </label><br>
+                <input type="text" name="DiaChi">
+                <br>
+                <br>
+                <label for="">Số điện thoại: </label><br>
+                <input type="text" name="Sdt">
+                <br>
+                <br>
+                <label for="">Công nợ: </label><br>
+                <input type="text" name="CongNo">
+                <br><br>
+                <input class="btn-submit" type="submit" value="Chỉnh sửa khách hàng">
+            </form>
+        </div>
     </div>
 </div>
 <script>

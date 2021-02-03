@@ -68,13 +68,17 @@ class PagingComponent extends HTMLElement{
         str += `
         <li>
             <a href="${this.destination}${symbol}page=${previous}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
+                <button aria-hidden="true">&laquo;</button>
             </a>
         </li>`
         this.listPage.forEach((element)=>{
             if(element == me.currentPage) className="active";
             else className = "";
-            str +=`<li class="${className}"><a href="${me.destination}${symbol}page=${element}">${element}</a></li>`;   
+            str +=`<li class="${className}"><a href="${me.destination}${symbol}page=${element}">
+                <button>
+                    ${element}
+                </button>
+            </a></li>`;   
         });
         //Next
         var lastPage = this.listPage[this.listPage.length - 1];
@@ -82,7 +86,7 @@ class PagingComponent extends HTMLElement{
         str += `
         <li>
             <a href="${this.destination}${symbol}page=${next}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
+                <button aria-hidden="true">&raquo;</button>
             </a>
         </li>`;
         return str;

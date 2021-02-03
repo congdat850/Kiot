@@ -1,0 +1,32 @@
+body{
+    background-color:  #eeeeee;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+
+/* css title-page for all page */
+.title-page{
+    margin: 0px 5%;
+    color: #313131;
+  }
+  /* css container for all page */
+.container {
+    background:#eeeeee;
+    height: 85vh;
+    width: 90vw;
+    margin: auto;
+    margin-top: 20px;
+    padding-top: 10px;
+    /* font-size: 17px; */
+}
+
+.close {
+    width: auto;
+    height: auto;
+    font-size: 20px;
+    color: red;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}

@@ -1,0 +1,14 @@
+select {
+    height: 30px;
+    line-height: 1.5;
+    text-align: center;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    outline: none;
+}
+
+option{
+    background-color: white;
+    color: black;
+}
+

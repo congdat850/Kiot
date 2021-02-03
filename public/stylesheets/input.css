@@ -1,0 +1,7 @@
+input{
+    height: 30px;
+    line-height: 1.5;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    outline: none;
+}

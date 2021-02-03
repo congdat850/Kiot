@@ -1,27 +1,32 @@
 <link rel="stylesheet" href="./stylesheets/createCustomer.css">
 <div class="form-add-user">
-    <form action="/addCustomer" method="post">
-        <fieldset>
-            <legend>THÊM KHÁCH HÀNG MỚI</legend>
+    <h3 class="title-page">THÊM KHÁCH HÀNG</h3>
+    <div class="create-customer">
+        <form action="/addCustomer" method="post">
             <label for="">Họ và tên khách hàng: </label><br>
             <input type="text" name="TenKhachHang">
+            <br>
             <br>
             <label for="">Email: </label><br>
             <input type="text" name="Email">
             <br>
+            <br>
             <label for="">Đơn vị: </label><br>
             <input type="text" name="DonVi">
+            <br>
             <br>
             <label for="">Địa chỉ: </label><br>
             <input type="text" name="DiaChi">
             <br>
+            <br>
             <label for="">Số điện thoại: </label><br>
             <input type="text" name="Sdt">
+            <br>
             <br>
             <label for="">Công nợ: </label><br>
             <input type="text" name="CongNo">
             <br><br>
             <input class="btn-submit" type="submit" value="Tạo khách hàng mới">
-        </fieldset>
-    </form>
+        </form>
+    </div>
 </div>

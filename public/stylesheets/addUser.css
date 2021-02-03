@@ -1,17 +1,17 @@
 .form-add-user
 {
-    font-size: 20px;
+    /* font-size: 20px; */
     width: 40%;
     margin-left: 10%;
     margin-top: 10px;
 }
 input{
     width: 60%;
-    font-size: 15px;
+    /* font-size: 15px; */
 }
 select{
     width: 60%;
-    font-size: 15px;
+    /* font-size: 15px; */
 }
 .btn-submit{
     background-color: #13aa52;
@@ -19,5 +19,4 @@ select{
     width: 84px;
     border: none;
     border-radius: 5px;
-
 }

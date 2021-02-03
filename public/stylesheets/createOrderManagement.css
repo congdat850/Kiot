@@ -1,31 +1,3 @@
-.form-add-order
-{
-    width: 90%;
-    margin-left: 5%;
-    margin-top: 10px;
-}
-input{
-
-    font-size: 15px;
-}
-select{
-  
-    font-size: 15px;
-}
-.btn-submit{
-    background-color: #13aa52;
-    height: 34px;
-    width: auto;
-    border: none;
-    color: white;
-}
-.covered-surface input{
- width: 70px;   
-}
-.covered-surface .btn-submit{
-    width: auto;
-    margin-left: 10px;
-}
 
 .table{
     width: 90%;
@@ -38,6 +10,11 @@ select{
     border: 1px #ccc solid;
     margin-bottom: 10px;
 }
+
+.create-order-management .input-none-edit {
+    background: #e4dedc;
+    border: none;
+}
 .item{
     white-space: nowrap;
 }
@@ -47,18 +24,7 @@ select{
     margin: 5px;
 }
 
-.input-none-edit{
-    background: #e4dedc;
-    border: none;
-}
 
-input#max-number-plank{
-    width: 100px;
-}
-
-input#tags-number-plank{
-    width: 100px;
-}
 
 .covered-surface{
     display: none;
@@ -76,8 +42,20 @@ table td, table th {
       display: none;
   }
   pre{
-      font-size: 15px;
       margin: 0;
   }
   
+
+  .create-order-management {
+    background: white;
+    padding: 15px 20px;
+    border: 1px solid #e8e8e8;
+    margin-top: 10px;
+    margin-left: 5%;
+    width: 90%;
+}
+
+.create-order-management label{
+    font-weight: bold;
+}
   
