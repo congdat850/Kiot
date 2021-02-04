@@ -37,7 +37,7 @@ function FormatQueryFilter(data) {
 
 class Order {
     async getListOrderManagement(req, res) {
-        let data = req.query;
+        let data = req.query || {};
         let page = data.page || 1;
         let result = [];
         let maxPage;
@@ -46,12 +46,11 @@ class Order {
         let toDate = data.toDate || "";
         let categorys = ["MaLenDon", "MaKhachHang", "TenKhachHang", "NguoiLenDon"]
 
-        if (data.hasOwnProperty("MaLenDon")||data.hasOwnProperty("MaKhachHang")||data.hasOwnProperty("TenKhachHang")||data.hasOwnProperty("NguoiLenDon")) {
-            if(data.hasOwnProperty("MaLenDon"))
-            {
+        if (data.hasOwnProperty("MaLenDon") || data.hasOwnProperty("MaKhachHang") || data.hasOwnProperty("TenKhachHang") || data.hasOwnProperty("NguoiLenDon")) {
+            if (data.hasOwnProperty("MaLenDon")) {
                 data.MaLenDon = +data.MaLenDon;
             }
-            data.hasOwnProperty("page")&&delete data.page;
+            data.hasOwnProperty("page") && delete data.page;
             maxPage = await model.getMaxPageListOrderManagement(data);
             result = await model.getListOrderManagement(data, page);
         }
@@ -78,31 +77,74 @@ class Order {
         let result;
         let data = JSON.parse(req.body.data);
 
-        if (data.beforeChangeProcess !== "DaGiao" && data.beforeChangeProcess != "HuyDon")
-            result = await model.changeOrderProcess({ "MaLenDon": data.id }, { "TienDo": data.process });
+        if (data.beforeChangeProcess !== "DaGiao" && data.beforeChangeProcess != "HuyDon") {
+            if (data.process == "HuyDon") {
+                let query = { MaLenDon: data.id };
+                result = await model.findOrderManagement(query);
+                let soLuongVanLenDon = result.SoLuongVanLenDon;
+                let soLuongMatPhuLenDon = result.SoLuongMatPhuLenDon;
+                //update Plank
+                for (let i = 0; i < soLuongVanLenDon.length; i++) {
+                    let queryPlank = { MaVan: soLuongVanLenDon[i].MaVan }
 
+                    let resultPlank = await model.findOnePlank(queryPlank);
+
+                    let soLuong = resultPlank.SoLuong;
+                    let newvalue = { $set: { SoLuong: (soLuong + soLuongVanLenDon[i].SoLuong) } }
+
+                    let resultUpdatePlank = await model.updatePlank(queryPlank, newvalue);
+                }
+                //update Surface
+                for (let i = 0; i < soLuongMatPhuLenDon.length; i++) {
+                    let querySurface = { MaMau: soLuongMatPhuLenDon[i].MaMau };
+
+                    let resultSurface = await model.findOneSurface(querySurface);
+
+                    let soLuong = resultSurface.SoLuong;
+                    let newvalue = { $set: { SoLuong: (soLuong + soLuongMatPhuLenDon[i].SoLuong) } };
+
+                    let resultUpdateSurface = await model.updateCoverSurface(querySurface, newvalue);
+                }
+            }
+
+            result = await model.changeOrderProcess({ "MaLenDon": data.id }, { "TienDo": data.process });
+        }
         res.send("success");
     }
 
     // page createOrderManagement
     async getCreateOrderManagement(req, res) {
+        let data = req.query;
+
+        let createOrderSuccess = data.createOrderSuccess || false;
+        let createOrderDefeat = data.createOrderDefeat|| false;
         let customers = await model.getListCustomer();
         let planks = await model.getListWarehousePlank();
         let coveredSurface = await model.getListWarehouseCoverSurface();
 
-        res.render("orderManagement/createOrderManagement", { notIsLogin: true, data: JSON.stringify({ "customers": customers, "planks": planks, "coveredSurface": coveredSurface }) });
+        res.render("orderManagement/createOrderManagement", {
+            notIsLogin: true,
+            data: JSON.stringify({ "customers": customers, "planks": planks, "coveredSurface": coveredSurface }),
+            createOrderSuccess:createOrderSuccess,
+            createOrderDefeat:createOrderDefeat
+        });
     }
 
     async postCreateOrderManagement(req, res) {
         const params = req.body;
-        let result=[];
-        let resultSurface=[];
+        let result = [];
+        let resultSurface = [];
 
-        let resultUpdate;
+        let resultUpdatePlank;
         let resultUpdateSurface;
 
         let KiemTraSoLuongVan = JSON.parse(params.KiemTraSoLuongVan);
         let KiemTraSoLuongMatPhu = JSON.parse(params.KiemTraSoLuongMatPhu);
+        let CapNhatSoLuongVan = JSON.parse(params.CapNhatSoLuongVan);
+        let CapNhatSoLuongMatPhu = JSON.parse(params.CapNhatSoLuongMatPhu);
+
+        console.log("Cap Nhat SL Van", CapNhatSoLuongMatPhu);
+        console.log("Kiem Tra So Luong Van", KiemTraSoLuongMatPhu);
 
         if (KiemTraSoLuongVan.length > 0)
             result = await model.findMultiplePlank(KiemTraSoLuongVan);
@@ -110,31 +152,26 @@ class Order {
             resultSurface = await model.findMultipleCoverSurface(KiemTraSoLuongMatPhu);
         if (result.length == KiemTraSoLuongVan.length && resultSurface.length == KiemTraSoLuongMatPhu.length) {
 
-            let d = new Date();
-            let MaLenDon = d.getTime();
-            let NgayLenDon = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`
-
+            let date = new Date();
+            let MaLenDon = date.getTime();
+            let NgayLenDon = `${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)} ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
             let SanPhamLenDon = JSON.parse(params.DanhSachSanPham);
 
-            let updatePlank = [];
-            let updateCoverSurface = [];
-            let valueCoverSurface = [];
+            let soLuongVanLenDon = [];
+            let soLuongMatPhuLenDon = [];
 
-            for (let i = 0; i < SanPhamLenDon.length; i++) {
-                let arrayNameProduct = SanPhamLenDon[i].LoaiVanDoDayMatPhuSoMat.split(" ");
-
-                updatePlank.push({ "MaVan": arrayNameProduct[0], "SoLuong": result[i].SoLuong - SanPhamLenDon[i].SoLuong });
-
-                if (arrayNameProduct[2] == "Min")
-                    valueCoverSurface.push({ "MaMau": arrayNameProduct[3], "SoLuong": SanPhamLenDon[i].SoLuong * arrayNameProduct[5][0] });
+            for (let i = 0; i < CapNhatSoLuongVan.length; i++) {
+                let query = { MaVan: CapNhatSoLuongVan[i].MaVan };
+                let newvalue = { $set: { SoLuong: CapNhatSoLuongVan[i].SoLuong } };
+                soLuongVanLenDon.push({ ...query, SoLuong: (KiemTraSoLuongVan[i].SoLuong - CapNhatSoLuongVan[i].SoLuong) });
+                resultUpdatePlank = await model.updatePlank(query, newvalue);
             }
 
-            for (let i = 0; i < resultSurface.length; i++) {
-                resultUpdateSurface = await model.updateCoverSurface({ "MaMau": resultSurface[i].MaMau, "SoLuong": (resultSurface[i].SoLuong - valueCoverSurface[i].SoLuong) });
-            }
-
-            for (let i = 0; i < updatePlank.length; i++) {
-                resultUpdate = await model.updatePlank(updatePlank[i]);
+            for (let i = 0; i < CapNhatSoLuongMatPhu.length; i++) {
+                let query = { MaMau: CapNhatSoLuongMatPhu[i].MaMau }
+                let newvalue = { $set: { SoLuong: CapNhatSoLuongMatPhu[i].SoLuong } }
+                soLuongMatPhuLenDon.push({ ...query, SoLuong: (KiemTraSoLuongMatPhu[i].SoLuong - CapNhatSoLuongMatPhu[i].SoLuong) })
+                resultUpdateSurface = await model.updateCoverSurface(query, newvalue);
             }
 
             let newOrder = {
@@ -145,19 +182,15 @@ class Order {
                 "NgayLenDon": NgayLenDon,
                 "TienDo": params.GhiChu == "" ? "SanXuat" : "ThieuHang",
                 "GhiChu": params.GhiChu,
-                "ChiTietDon": SanPhamLenDon
+                "ChiTietDon": SanPhamLenDon,
+                "SoLuongVanLenDon": soLuongVanLenDon,
+                "SoLuongMatPhuLenDon": soLuongMatPhuLenDon
             }
 
             result = await model.insertNewOrder(newOrder);
-            res.redirect("/orderManagement");
+            res.redirect("/createOrderManagement?createOrderSuccess=true");
         }
-        else res.redirect('/createOrderManagement');
-    }
-    async postSearchOrder(req, res) {
-        const data = req.body;
-
-        if (data.contentSearch) res.redirect("/orderManagement?contentSearch=" + data.contentSearch + "&typeSearch=" + data.typeSearch);
-        else res.redirect("/orderManagement");
+        else res.redirect('/createOrderManagement?createOrderDefeat=true');
     }
 
     async postFilterOder(req, res) {

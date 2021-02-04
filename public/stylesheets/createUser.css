@@ -1,0 +1,26 @@
+
+input{
+    width: 60%;
+}
+select{
+    width: 60%;
+}
+.btn-submit{
+    background-color: #13aa52;
+    height: 34px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.form-add-user {
+    background: white;
+    padding: 15px 15px 15px 30px;
+    width: 40%;
+    margin-left: 5%;
+    margin-top: 15px;
+}
+
+.form-add-user label{
+    font-weight: bold;
+}

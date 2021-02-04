@@ -1,32 +1,37 @@
 <link rel="stylesheet" href="./stylesheets/createCustomer.css">
+
+{{#if createCustomerSuccess}}
+    <cd-notification status="success" value="Thêm khách hàng thành công"></cd-notification>
+{{/if}}
+
 <div class="form-add-user">
     <h3 class="title-page">THÊM KHÁCH HÀNG</h3>
     <div class="create-customer">
         <form action="/addCustomer" method="post">
-            <label for="">Họ và tên khách hàng: </label><br>
-            <input type="text" name="TenKhachHang">
+            <label for="">*Họ và tên khách hàng: </label><br>
+            <input type="text" name="TenKhachHang" required>
             <br>
             <br>
-            <label for="">Email: </label><br>
-            <input type="text" name="Email">
+            <label for="">*Email: </label><br>
+            <input type="text" name="Email" required>
             <br>
             <br>
-            <label for="">Đơn vị: </label><br>
-            <input type="text" name="DonVi">
+            <label for="">*Đơn vị: </label><br>
+            <input type="text" name="DonVi" required>
             <br>
             <br>
-            <label for="">Địa chỉ: </label><br>
-            <input type="text" name="DiaChi">
+            <label for="">*Địa chỉ: </label><br>
+            <input type="text" name="DiaChi" required>
             <br>
             <br>
-            <label for="">Số điện thoại: </label><br>
-            <input type="text" name="Sdt">
+            <label for="">*Số điện thoại: </label><br>
+            <input type="text" name="Sdt" required>
             <br>
             <br>
-            <label for="">Công nợ: </label><br>
+            <label for="">*Công nợ: </label><br>
             <input type="text" name="CongNo">
             <br><br>
-            <input class="btn-submit" type="submit" value="Tạo khách hàng mới">
+            <input class="btn-submit" type="submit" value="TẠO KHÁCH HÀNG MỚI">
         </form>
     </div>
 </div>

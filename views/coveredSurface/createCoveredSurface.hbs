@@ -1,16 +1,21 @@
-<link rel="stylesheet" href="./stylesheets/createPlank.css">
-<div class="form-add-user">
-    <form action="/addCoveredSurface" method="post">
-        <fieldset>
-            <legend>NHẬP MẶT PHỦ</legend>
+<link rel="stylesheet" href="./stylesheets/createCoverSurface.css">
+
+{{#if createSurfaceSuccess}}
+    <cd-notification status="success" value="Thêm mặt phủ thành công"></cd-notification>
+{{/if}}
+
+<div class="create-cover-surface">
+    <h3 class="title-page">THÊM MẶT PHỦ</h3>
+    <div class="form-add-cover-surface">
+        <form action="/addCoveredSurface" method="post">
             <label for="">*Mã màu: </label><br>
-            <input type="text" name="MaMau">
+            <input type="text" name="MaMau" required>
             <br>
             <br>
             <label for="">*Số lượng: </label><br>
-            <input type="number" min="1" name="SoLuong">
+            <input type="number" min="1" name="SoLuong" required>
             <br><br>
-            <input class="btn-submit" type="submit" value="Nhập ván">
-        </fieldset>
-    </form>
+            <input class="btn-submit" type="submit" value="THÊM MẶT PHỦ" >
+        </form>
+    </div>
 </div>

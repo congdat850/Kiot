@@ -1,0 +1,40 @@
+.notification-component {
+    width: 100vw;
+    background-color: gray;
+    height: 100vh;
+    z-index: 9;
+    opacity: 0.6;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+  
+}
+
+.notification {
+    background-color: white;
+    height: 250px;
+    width: 30vw;
+    left: 35vw;
+    /* margin: auto; */
+    position: fixed;
+    z-index: 12;
+    text-align: center;
+}
+
+.icon{
+    font-size: 50px;
+    color: #007bff;
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+    margin-top: 30px;
+}
+
+.defeat{
+    color: #6c757d;
+}
+
+.content-notification {
+    text-align: center;
+    margin-bottom: 35px;
+}

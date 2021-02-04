@@ -32,24 +32,29 @@ class Customer {
     async getListCustomer(req, res) {
         let data = req.query;
         let page = data.page || 1;
-        let categorys = ["MaKhachHang","TenKhachHang","DiaChi","Sdt","Email"];
-        data.hasOwnProperty("page")&&delete data.page;
+        let categorys = ["MaKhachHang", "TenKhachHang", "DiaChi", "Sdt", "Email"];
+        data.hasOwnProperty("page") && delete data.page;
         let query = data || {};
 
         let maxPage = await model.getMaxPageListCustomer(query);
-        let result = await model.getListCustomer(query,page);
+        let result = await model.getListCustomer(query, page);
 
         res.render("customers/listCustomer", {
             notIsLogin: true,
             customers: result,
             page: page,
             maxPage: maxPage,
-            categorys:categorys
+            categorys: categorys
         });
     }
 
     async getAddCustomer(req, res) {
-        res.render("customers/createCustomer", { notIsLogin: true });
+        let data = req.query;
+        let createCustomerSuccess = data.createCustomerSuccess || false;
+        res.render("customers/createCustomer", {
+            notIsLogin: true,
+            createCustomerSuccess: createCustomerSuccess
+        });
     }
     async postAddCustomer(req, res) {
         const customer = req.body;
@@ -69,7 +74,7 @@ class Customer {
         customerNew = { "MaKhachHang": nameCodeCustomerNew, ...customer };
         console.log(customerNew);
         result = await model.insertCustomer(customerNew);
-        res.redirect("/customer");
+        res.redirect("/addCustomer?createCustomerSuccess=true");
     }
 
     async postDeleteCustomer(req, res) {

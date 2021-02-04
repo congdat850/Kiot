@@ -38,7 +38,6 @@ router.get("/orderManagement", orderManagementController.getListOrderManagement)
 router.post("/postProcess",orderManagementController.postProcess);
 router.get("/createOrderManagement",orderManagementController.getCreateOrderManagement);
 router.post("/postCreateOrderManagement",orderManagementController.postCreateOrderManagement);
-router.post("/postSearchOrder",orderManagementController.postSearchOrder);
 router.post("/postFilterOder", orderManagementController.postFilterOder);
 // GET CoveredSurface
 router.get("/coveredSurface",coveredSurfaceController.getListWarehouseCoverSurface);

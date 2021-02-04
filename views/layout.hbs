@@ -3,16 +3,43 @@
 
 <head>
     <title>KIOT</title>
+    <link rel="stylesheet" href="/fontawesome/css/all.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <link rel="stylesheet" href="./stylesheets/header.css">
+    <link rel="stylesheet" href="./stylesheets/style.css">
+    <link rel="stylesheet" href="./stylesheets/tableList.css">
+    <link rel="stylesheet" href="./stylesheets/rootCss.css">
+    <link rel="stylesheet" href="./stylesheets/pagingComponent.css">
+    <link rel="stylesheet" href="./stylesheets/searchComponent.css">
+    <link rel="stylesheet" href="./stylesheets/listOrderManagement.css">
+    <link rel="stylesheet" href="./stylesheets/button.css">
+    <link rel="stylesheet" href="./stylesheets/select.css">
+    <link rel="stylesheet" href="./stylesheets/color.css">
+    <link rel="stylesheet" href="./stylesheets/input.css">
+    <link rel="stylesheet" href="./stylesheets/notificationComponent.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/fontawesome/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="./javascripts/papingComponent.js"></script>
+    <script src="/javascripts/header.js"></script>
+    <script src="./javascripts/searchComponent.js"></script>
+    <script src="./javascripts/notificationComponent.js"></script>
 </head>
+
 <body class="animsition">
     {{#if notIsLogin}}
     {{> header}}
     {{/if}}
-        <div class="container">
-          {{{body}}}
+    <div class="container">
+        {{{body}}}
     </div>
     {{#if notIsLogin}}
     {{> footer}}
     {{/if}}
 </body>
+
 </html>

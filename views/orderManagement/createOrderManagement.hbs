@@ -1,5 +1,13 @@
 <link rel="stylesheet" href="./stylesheets/createOrderManagement.css">
 
+{{#if createOrderSuccess}}
+    <cd-notification status="success" value="Tạo đơn hàng thành công"></cd-notification>
+{{/if}}
+
+{{#if createSurfaceDefeat}}
+    <cd-notification status="defeat" value="Tạo đơn hàng thất bại"></cd-notification>
+{{/if}}
+
 <div class="form-add-order">
     <h3 class="title-page">TẠO ĐƠN HÀNG</h3>
     <div class="create-order-management">
@@ -124,6 +132,8 @@
             <input type="text" id="inputResGhiChu" name="GhiChu" hidden>
             <input type="text" id="inputResKiemTraSoLuongVan" name="KiemTraSoLuongVan" hidden>
             <input type="text" id="inputResKiemTraSoLuongMatPhu" name="KiemTraSoLuongMatPhu" hidden>
+            <input type="text" id="inputResCapNhatSoLuongVan" name="CapNhatSoLuongVan" hidden>
+            <input type="text" id="inputResCapNhatSoLuongMatPhu" name="CapNhatSoLuongMatPhu" hidden>
             <input class="btn-submit primary" id="submit-create-order" type="submit" value="Tạo đơn hàng">
         </form>
     </div>
@@ -140,6 +150,9 @@
     let compareCustomers = [];
     // note
     let GhiChu = [];
+
+    let submitCreateOrder = document.getElementById("submit-create-order");
+
     for (let i = 0; i < customers.length; i++) {
         let codeCustomer = customers[i].MaKhachHang;
         let nameCustomer = customers[i].TenKhachHang;
@@ -162,7 +175,7 @@
             tabsNameCustomer.value = compareCustomers[tagsCodeCustomer.value].nameCustomer || "";
         }
         else {
-            tabsDebt.value =  "";
+            tabsDebt.value = "";
             tabsNameCustomer.value = "";
         }
 
@@ -397,6 +410,7 @@
     function ShowBtnUpdatePlank() {
         tagsUpdatePlank.style.display = "inline-block";
         tagsAddPlanks.style.display = "none";
+        submitCreateOrder.style.visibility = "hidden"
     }
 
     function editPlank(e) {
@@ -441,6 +455,7 @@
     function hiddenBtnUpdatePlank() {
         tagsUpdatePlank.style.display = "none";
         tagsAddPlanks.style.display = "inline-block";
+        submitCreateOrder.style.visibility = "visible";
     }
 
     tagsUpdatePlank.addEventListener("click", () => {
@@ -540,28 +555,54 @@
     let inputResGhiChu = document.getElementById("inputResGhiChu");
 
     let inputResKiemTraSoLuongVan = document.getElementById("inputResKiemTraSoLuongVan");
-    let inputResKiemTraSoLuongMatPhu = document.getElementById("inputResKiemTraSoLuongMatPhu")
+    let inputResKiemTraSoLuongMatPhu = document.getElementById("inputResKiemTraSoLuongMatPhu");
+    let inputResCapNhatSoLuongVan = document.getElementById("inputResCapNhatSoLuongVan");
+    let inputResCapNhatSoLuongMatPhu = document.getElementById("inputResCapNhatSoLuongMatPhu");
 
-    let submitCreateOrder = document.getElementById("submit-create-order");
+
 
     submitCreateOrder.addEventListener("click", () => {
         let submitPlanks = [];
         let submitCoverSurface = [];
+        let resultOfPlanksAfterOrder = [];
+        let resultOfSurfaceAfterOrder = [];
+        let exampleEqualPlank = [];
+        let exampleEqualSurface = [];
         inputResMaKhachHang.value = tagsCodeCustomer.value;
         inputResTenKhachHang.value = tabsNameCustomer.value;
         inputResCongNo.value = tabsDebt.value;
         inputResDanhSachSanPham.value = JSON.stringify(arrayPlanks);
+        console.log("comparePlanks ", comparePlanks);
+        console.log("arrayPlank", arrayPlanks);
 
         for (let i = 0; i < arrayPlanks.length; i++) {
+            // read check amount plank
             let index = arrayPlanks[i].LoaiVanDoDayMatPhuSoMat.split(" ");
             submitPlanks.push(checkSubmitPlanks[index[0]]);
-            if (index[2] == "Min")
+            //end
+
+            //read update plank
+            if (exampleEqualPlank.indexOf(comparePlanks[index[0]]) == -1) {
+                let planksAfterOrder = { MaVan: index[0], SoLuong: comparePlanks[index[0]].amount };
+                resultOfPlanksAfterOrder.push(planksAfterOrder);
+                exampleEqualPlank.push(comparePlanks[index[0]]);
+            }
+            //end
+
+            if (index[2] == "Min") {
                 submitCoverSurface.push(checkSubmitCoverSurface[index[3]]);
+                if (exampleEqualSurface.indexOf(compareCoveredSurface[index[3]]) == -1) {
+                    resultOfSurfaceAfterOrder.push({ MaMau: index[3], SoLuong: compareCoveredSurface[index[3]].maxNumberSurface });
+                    exampleEqualSurface.push(compareCoveredSurface[index[3]]);
+                }
+            }
+
         }
         inputResKiemTraSoLuongMatPhu.value = JSON.stringify([...new Set(submitCoverSurface)]);
         inputResKiemTraSoLuongVan.value = JSON.stringify([...new Set(submitPlanks)]);
+        inputResCapNhatSoLuongVan.value = JSON.stringify([...new Set(resultOfPlanksAfterOrder)]);
+        inputResCapNhatSoLuongMatPhu.value = JSON.stringify([...new Set(resultOfSurfaceAfterOrder)]);
         inputResGhiChu.value = GhiChu.join(", ");
-
     })
 
     function checkAfterSubmit() {

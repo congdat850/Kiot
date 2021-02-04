@@ -4,26 +4,31 @@ class CoveredSurface {
     async getListWarehouseCoverSurface(req, res) {
         let data = req.query;
         let page = data.page || 1;
-        let categorys= ["MaMau","LoaiMatPhu"];
+        let categorys = ["MaMau", "LoaiMatPhu"];
 
-        data.hasOwnProperty("page")&& delete data.page;
+        data.hasOwnProperty("page") && delete data.page;
 
-        let query = data||{};
+        let query = data || {};
 
         let maxPage = await model.getMaxPageListWarehouseCoverSurface(query);
-        let result = await model.getListWarehouseCoverSurface(query,page);
+        let result = await model.getListWarehouseCoverSurface(query, page);
 
         res.render("coveredSurface/listWarehouseCoveredSurface", {
             notIsLogin: true,
             coveredSurface: result,
             page: page,
             maxPage: maxPage,
-            categorys:categorys
+            categorys: categorys
         });
     }
 
     async createCoveredSurface(req, res) {
-        res.render("coveredSurface/createCoveredSurface", { notIsLogin: true });
+        let data = req.query;
+        let createSurfaceSuccess = data.createSurfaceSuccess || false;
+        res.render("coveredSurface/createCoveredSurface", {
+            notIsLogin: true,
+            createSurfaceSuccess, createSurfaceSuccess
+        });
     }
 
     async postAddPCoveredSurface(req, res) {
@@ -39,27 +44,27 @@ class CoveredSurface {
         let valueInsert = { "MaNhap": MaNhap, "NgayNhap": NgayNhap, ...valueUpdate };
         let resultNew = await model.insertCoverSurface(valueInsert);
 
-        res.redirect("/coveredSurface")
+        res.redirect("/addCoveredSurface?createSurfaceSuccess=true")
     }
 
     async getListImportCoverSurface(req, res) {
         let data = req.query;
         let page = data.page || 1;
-        let categorys = ["MaNhap","MaMau","Film","LoaiMatPhu"];
+        let categorys = ["MaNhap", "MaMau", "Film", "LoaiMatPhu"];
 
-        data.hasOwnProperty("page")&&delete data.page;
-        
+        data.hasOwnProperty("page") && delete data.page;
+
         let query = data || {};
-        
+
         let maxPage = await model.getMaxPageListImportCoverSurface(query);
-        let result = await model.getListImportCoverSurface(query,page);
+        let result = await model.getListImportCoverSurface(query, page);
 
         res.render("coveredSurface/listImportCoverSurface", {
             notIsLogin: true,
             coverSurfaces: result,
             maxPage: maxPage,
             page: page,
-            categorys:categorys
+            categorys: categorys
         });
     }
 }

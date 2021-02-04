@@ -61,6 +61,19 @@ class Model {
   }
 
   // Plank management
+
+  async findOnePlank(query)
+  {
+    let result = await dbo.collection("KhoVan").findOne(query);
+    return result;
+  }
+
+  async updatePlank(query,newvalue) {
+    let result = await dbo.collection("KhoVan").updateOne(query, newvalue);
+    return result;
+  }
+
+
   async getListWarehousePlank(query,page) {
     let result = await dbo.collection("KhoVan").find(query).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
     return result;
@@ -110,6 +123,12 @@ class Model {
     return result;
   }
 
+  async findOrderManagement(query)
+  {
+    let result = await dbo.collection("LenDon").findOne(query);
+    return result;
+  }
+
   async getMaxPageListOrderManagement(query)
   {
     let result = await dbo.collection("LenDon").find(query).count();
@@ -127,18 +146,20 @@ class Model {
     return result;
   }
 
-  async updatePlank(query) {
-    let myquery = { "MaVan": query.MaVan };
-    let newvalue = { $set: query };
-    let result = await dbo.collection("KhoVan").updateOne(myquery, newvalue);
-    return result;
-  }
+  
 
   async insertNewOrder(query) {
     let result = await dbo.collection("LenDon").insertOne(query)
     return result;
   }
   //Covered Surface
+
+  async findOneSurface(query)
+  {
+    let result = dbo.collection("KhoMatPhu").findOne(query);
+    return result;
+  }
+
   async getListWarehouseCoverSurface(query,page) {
     let result = await dbo.collection("KhoMatPhu").find(query).skip(PAGE_SIZE*(page-1)).limit(PAGE_SIZE).toArray();
     return result;
@@ -168,10 +189,8 @@ class Model {
     return result;
   }
 
-  async updateCoverSurface(query) {
-    let myquery = { "MaMau": query.MaMau };
-    let newvalue = { $set: query };
-    let result = await dbo.collection("KhoMatPhu").updateOne(myquery, newvalue);
+  async updateCoverSurface(query,newvalue) {
+    let result = await dbo.collection("KhoMatPhu").updateOne(query, newvalue);
     return result;
   }
 

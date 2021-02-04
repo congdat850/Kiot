@@ -1,14 +1,10 @@
-.create-plank{
+.create-cover-surface{
     font-weight: bold;
 }
 input{
     width: 60%;
 }
 
-
-select{
-    
-}
 .btn-submit{
     background-color: #13aa52;
     height: 34px;
@@ -19,17 +15,11 @@ select{
     
 }
 
-.form-add-plank
+.form-add-cover-surface
 {
     background-color: white;
     margin-top: 15px;
     margin-left: 5%;
     width: 40%;
     padding: 15px 15px 15px 30px;
-}
-
-.form-add-plank .moisture-resistant
-{
-    height: fit-content;
-    width: fit-content;
 }

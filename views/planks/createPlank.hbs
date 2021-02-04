@@ -1,15 +1,19 @@
 <link rel="stylesheet" href="./stylesheets/createPlank.css">
-<div class="form-add-user">
-    <form action="/addPlank" method="post">
-        <fieldset>
-            <legend>NHẬP VÁN</legend>
+
+{{#if createPlankSuccess}}
+    <cd-notification status="success" value="Thêm ván thành công"></cd-notification>
+{{/if}}
+
+<div class="create-plank">
+    <h3 class="title-page">THÊM VÁN</h3>
+    <div class="form-add-plank">
+        <form action="/addPlank" method="post">
             <label for="">*Mã ván: </label><br>
-            <input type="text" name="MaVan">
-            <br>
+            <input type="text" name="MaVan" required>
+            <br><br>
             <label for="">*Tên ván: </label><br>
-            <input type="text" name="TenVan">
-            <br>
-         
+            <input type="text" name="TenVan" required>
+            <br><br>
             <label for="">*Độ giày: </label>
             <select name="DoDay" id="">
                 <option value="20li">20li</option>
@@ -18,27 +22,23 @@
                 <option value="15li">15li</option>
                 <option value="14li">14li</option>
             </select>
-         
-            <br>
-            <label for="">*Nhà cung cấp: </label><br>
-            <input type="text" name="NhaCungCap">
-            <br>
-  
-            <label for="">*Chống ẩm: </label>
-            <label >Có</label>
-            <input type="radio"  name="ChongAm" value="Có">
-            <label >Không</label>
-            <input checked="checked" type="radio"  name="ChongAm" value="Không">
-            <br>
-         
-            <label for="">*Đơn giá nhập: </label><br>
-            <input type="text" name="DonGia">
-            <br>
-           
-            <label for="">*Số lượng: </label><br>
-            <input type="number" min="1" name="SoLuong">
             <br><br>
-            <input class="btn-submit" type="submit" value="Nhập ván">
-        </fieldset>
-    </form>
+            <label for="">*Nhà cung cấp: </label><br>
+            <input type="text" name="NhaCungCap" required>
+            <br><br>
+            <label for="">*Chống ẩm: </label>
+            <label>Có</label>
+            <input type="radio" name="ChongAm" value="Có"  class="moisture-resistant">
+            <label>Không</label>
+            <input checked="checked" type="radio" name="ChongAm" value="Không" class="moisture-resistant">
+            <br><br>
+            <label for="">*Đơn giá nhập: </label><br>
+            <input type="text" name="DonGia" required>
+            <br><br>
+            <label for="">*Số lượng: </label><br>
+            <input type="number" min="1" name="SoLuong" required>
+            <br><br>
+            <input class="btn-submit" type="submit" value="THÊM VÁN">
+        </form>
+    </div>
 </div>
