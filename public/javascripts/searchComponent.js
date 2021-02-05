@@ -14,7 +14,7 @@ class searchComponent extends HTMLElement {
         <div class="search-new">
         <input type="text" placeholder="Tìm kiếm">
         <select>${this.fillCategoryForSelect()}</select>
-            <a href=""><button class="success">Tìm kiếm</button></a>
+            <a href=""><button class="success"><i class="fas fa-search"></i> Tìm kiếm</button></a>
         </div>`);
         this.getElementsByTagName("button")[0].addEventListener("click",this.submitSearch.bind(this));
     

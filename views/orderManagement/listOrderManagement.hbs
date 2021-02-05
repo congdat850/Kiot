@@ -19,8 +19,8 @@
             <input value="{{this.fromDate}}" type="date" id="from-date" name="fromDate">
             <label for="birthday">Đến ngày:</label>
             <input value="{{this.toDate}}" type="date" id="to-date" name="toDate">
-            <button class="success" id="btn-filter" type="submit">Lọc</button>
-            <button type="reset" onclick="reloadPage()">Bỏ lọc</button>
+            <button class="success" id="btn-filter" type="submit"><i class="fas fa-filter"></i> Lọc</button>
+            <button type="reset" onclick="reloadPage()"><i class="fas fa-undo-alt"></i> Bỏ lọc</button>
         </form>
     </div>
     <div class="search-component">
@@ -48,7 +48,7 @@
         <td>{{this.TenKhachHang}}</td>
         <td>{{this.NguoiLenDon}}</td>
         <td>{{this.NgayLenDon}}</td>
-        <td> <button for={{@index}} class="seen-detail info">xem chi tiết</button></button></td>
+        <td> <button for={{@index}} class="seen-detail info"><i class="fas fa-eye"></i> Xem chi tiết</button></button></td>
         <td>
             <input id="before-change-process" type="text" value="{{this.TienDo}}" hidden>
             <select class="process">

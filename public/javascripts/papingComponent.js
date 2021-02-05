@@ -68,7 +68,7 @@ class PagingComponent extends HTMLElement{
         str += `
         <li>
             <a href="${this.destination}${symbol}page=${previous}" aria-label="Previous">
-                <button aria-hidden="true">&laquo;</button>
+                <button aria-hidden="true"><i class="fas fa-step-backward"></i></button>
             </a>
         </li>`
         this.listPage.forEach((element)=>{
@@ -86,7 +86,7 @@ class PagingComponent extends HTMLElement{
         str += `
         <li>
             <a href="${this.destination}${symbol}page=${next}" aria-label="Next">
-                <button aria-hidden="true">&raquo;</button>
+                <button aria-hidden="true"><i class="fas fa-step-forward"></i></button>
             </a>
         </li>`;
         return str;
